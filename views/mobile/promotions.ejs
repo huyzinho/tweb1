@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="vi" class="loaded" data-react-helmet="lang" style="--swiper-theme-color: #fff; --window-inner-height: 812px; --platform-color-highlight: #3d7fc5;"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><link rel="shortcut icon" href="/favicons/vi6prod.ico"><meta name="referrer" content="origin"><meta name="google" content="notranslate"><title>GA6789</title><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="preconnect" href="https://img.alltocon.com"><link rel="dns-prefetch" href="https://img.alltocon.com"><link rel="preconnect" href="https://api.ga6789x7.com"><link rel="dns-prefetch" href="https://api.ga6789x7.com"><style>.app-loading-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #e4e5e5;
+    z-index: 1;
+  }
+
+  html.loaded {
+    #p-img,
+    .app-loading-bg {
+      display: none;
+    }
+  }
+ 
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    display: none;
+  }
+
+  .app-loading-custom {
+    position: fixed;
+    background-color: #e4e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: calc(100vh - env(safe-area-inset-bottom));
+    color: #666;
+    font-family: -apple-system-font, Helvetica Neue, PingFang SC, STHeitiSC-Light, Arial, sans-serif;
+    z-index: 99999999;
+
+    > div {
+      min-height: 200px;
+      > h2 {
+        margin: 0.83em 0;
+      }
+
+      > p {
+        margin: 1em 0;
+      }
+    }
+    .brand-img-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+      width: 70vw;
+      max-width: 600px;
+    }
+  }
+
+  .app-loading.hide {
+    opacity: 0;
+  }
+
+  .app-loading,
+  .app-failure {
+    position: fixed;
+    background-color: #212534;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-family: -apple-system-font, Helvetica Neue, PingFang SC, STHeitiSC-Light, Arial, sans-serif;
+    z-index: 99999999;
+  }
+  .app-loading .loading-icon,
+  .app-failure .loading-icon {
+    width: 30px;
+  }
+  .loading-cont {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto;
+    font-size: 19px;
+    opacity: 0.6;
+    min-height: 30px;
+  }
+  .app-loading .logo,
+  .app-failure .logo {
+    width: 80%;
+    max-width: 300px;
+  }
+  .app-failure h1 {
+    width: 100%;
+    color: #efefef;
+    font-size: 28px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .app-failure .cont {
+    padding: 0 20px;
+  }
+  .app-failure .cont span {
+    font-size: 14px;
+  }
+  .app-failure li {
+    margin: 10px 0;
+  }
+  .app-failure .btn-refresh {
+    display: block;
+    text-decoration: none;
+    margin-top: 10px;
+    line-height: 42px;
+    width: 120px;
+    text-align: center;
+    color: #666;
+    border: 1px solid #888;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 800;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  }
+  .app-failure .cont span.version-hash {
+    font-size: 12px;
+  }
+  @property --rotate {
+    syntax: '<angle>';
+    initial-value: 132deg;
+    inherits: false;
+  }
+  :root {
+    --card-height: 65vh;
+    --card-width: 70vw;
+  }
+  .main-cont {
+    box-sizing: border-box;
+    background: rgba(25, 28, 41, 0.95);
+    width: var(--card-width);
+    height: var(--card-height);
+    max-width: 600px;
+    padding: 3px;
+    position: relative;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .main-cont .brand .loading-msg {
+    padding: 0 5px;
+    margin: 0.3em 0 0.83em 0;
+  }
+  .main-cont .brand .loading-msg,
+  .main-cont .brand .loading-msg b {
+    font-weight: normal;
+    line-height: 1.4;
+    font-size: 19px;
+  }
+  .main-cont .brand {
+    height: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+
+    .brand-img-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+      width: 70vw;
+      max-width: 600px;
+
+      .new-logo {
+        position: absolute;
+        width: 95vw;
+        max-width: 537.5px;
+      }
+    }
+  }
+  .main-cont .brand .loading-msg {
+    width: 100%;
+  }
+  .main-cont .brand .loading-msg b + span {
+    display: none;
+  }
+  .main-cont::before {
+    content: '';
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    border-radius: 13px;
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    position: absolute;
+    z-index: -1;
+    top: -3px;
+    left: -3px;
+    animation: light-spin 4.5s linear infinite;
+  }
+
+  .main-cont::after {
+    position: absolute;
+    content: '';
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    opacity: 1;
+    transition: opacity 0.5s;
+    animation: light-spin 4.5s linear infinite;
+  }
+
+  @keyframes light-spin {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  }</style><script src="https://connect.facebook.net/signals/config/1876521383131167?v=2.9.334&amp;r=stable&amp;domain=www.t12026ga6789.com&amp;hme=d9eb83ce5750216745fae8e2064a8c1ed2255ecaf2468f800b2a146e6168b65e&amp;ex_m=105%2C208%2C156%2C22%2C73%2C74%2C147%2C69%2C68%2C11%2C165%2C91%2C16%2C139%2C128%2C39%2C76%2C79%2C135%2C161%2C167%2C8%2C4%2C5%2C7%2C6%2C3%2C92%2C102%2C168%2C173%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C104%2C61%2C10%2C64%2C98%2C99%2C100%2C106%2C131%2C31%2C29%2C133%2C134%2C130%2C129%2C157%2C77%2C160%2C158%2C159%2C50%2C60%2C124%2C15%2C164%2C45%2C267%2C268%2C266%2C26%2C27%2C28%2C48%2C148%2C78%2C113%2C18%2C20%2C44%2C40%2C42%2C41%2C84%2C93%2C97%2C111%2C146%2C149%2C46%2C112%2C24%2C21%2C120%2C70%2C36%2C151%2C150%2C152%2C143%2C141%2C25%2C35%2C59%2C110%2C163%2C71%2C17%2C154%2C115%2C82%2C67%2C19%2C86%2C87%2C117%2C85%2C137%2C136%2C140%2C162%2C34%2C282%2C298%2C215%2C204%2C62%2C205%2C203%2C301%2C292%2C52%2C216%2C108%2C132%2C81%2C122%2C54%2C47%2C49%2C114%2C121%2C127%2C126%2C58%2C65%2C63%2C153%2C116%2C37%2C32%2C53%2C56%2C101%2C166%2C1%2C125%2C14%2C123%2C12%2C2%2C57%2C94%2C66%2C119%2C90%2C89%2C169%2C170%2C95%2C96%2C9%2C103%2C51%2C144%2C88%2C80%2C72%2C118%2C107%2C43%2C145%2C0%2C83%2C138%2C142%2C155%2C38%2C109%2C13%2C171" async=""></script><script async="" src="/connect.facebook.net/en_US/fbevents.js"></script><!-- <script defer="defer" src="/static/js/runtimechunk~main.25a99439.js"></script><script defer="defer" src="/static/js/vendor-moment.31f5b79e.js"></script><script defer="defer" src="/static/js/r16-dom.9673ff4f.js"></script><script defer="defer" src="/static/js/vendor.5882b22c.js"></script><script defer="defer" src="/static/js/main.0e66ecf7.js"></script> --><meta name="apple-mobile-web-app-title" content="GA6789"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#ffffff"><meta name="theme-color" content="#EFEFEF"><link rel="apple-touch-icon" sizes="512x512" href="/icon_512x512.png"><link rel="apple-touch-icon" sizes="384x384" href="/icon_384x384.png"><link rel="apple-touch-icon" sizes="192x192" href="/icon_192x192.png"><link rel="apple-touch-icon" sizes="152x152" href="/icon_152x152.png"><link rel="apple-touch-icon" sizes="144x144" href="/icon_144x144.png"><link rel="apple-touch-icon" sizes="128x128" href="/icon_128x128.png"><link rel="apple-touch-icon" sizes="72x72" href="/icon_72x72.png"><link rel="apple-touch-icon" sizes="96x96" href="/icon_96x96.png"><link rel="manifest" href="/manifest.json"><link rel="preload" as="script" href="/static/js/i18n-vi-VN.9a00b92f.js">
+<link rel="stylesheet" type="text/css" href="/static/stylesheets/206.d4cde7e6.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/6569.b3db9391.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-home.11b11621.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-promo.a573523d.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-prom-n.960d16e8.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-promo-de.5e462ae1.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-login.cbbf1dbf.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-signup.36b1c1b4.css"><script>
+        !(function (f, b, e, v, n, t, s) {
+          if (f.fbq) return;
+          n = f.fbq = function () {
+            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = '2.0';
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(window, document, 'script', '/connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1876521383131167');
+        fbq('track', 'PageView');</script><link rel="stylesheet" type="text/css" href="/static/stylesheets/300.1da82308.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-reg-ro.ad92be62.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-spdpum.fb5479af.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-addhs.e02e05ce.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-cs.bd7bb00c.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-adFloatingGame.34d948cf.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/4259.65c1fa99.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/664.a56518c6.css"><meta name="description" content="GA6789" data-react-helmet="true"></head><body><div id="root" style="display: block;"><div class="app promotions"><div style="display: none;"></div><div class="app-body nav-bar"><div class="promo"><div class="banner"><img alt="" src="/img.alltocon.com/img/static/promo.png"></div><div class="promo-content"><div class="navbar"><i class="d20_system_back back-icon"></i>Khuyến mãi<div class="country-selector-wrapper"></div></div><div class="category"><div class="m-promo-nav"><div class="swiper swiper-initialized swiper-horizontal swiper-ios"><div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);"><div class="swiper-slide swiper-slide-active" style="margin-right: 10px;"><div class="nav-item active"><div class="label">Tất Cả</div></div></div><div class="swiper-slide swiper-slide-next" style="margin-right: 10px;"><div class="nav-item"><div class="label">Đá Gà</div></div></div><div class="swiper-slide" style="margin-right: 10px;"><div class="nav-item"><div class="label">Thể Thao</div></div></div><div class="swiper-slide" style="margin-right: 10px;"><div class="nav-item"><div class="label">Live Casino</div></div></div><div class="swiper-slide" style="margin-right: 10px;"><div class="nav-item"><div class="label">Hoàn trả</div></div></div><div class="swiper-slide" style="margin-right: 10px;"><div class="nav-item"><div class="label">Khuyến mãi Vip</div></div></div><div class="swiper-slide" style="margin-right: 10px;"><div class="nav-item"><div class="label">Nổ hũ Bắn cá</div></div></div></div></div></div></div><div class="promo-list"><div class="promo-banner-container"><div data-promo="BẢO HIỂM VÉ CƯỢC WORLD CUP LÊN ĐẾN 100%" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/ca55c3a7-cb43-434c-b9d5-4a884b98f37b.jpg" alt="BẢO HIỂM VÉ CƯỢC WORLD CUP LÊN ĐẾN 100%"></div><div data-promo="CHUYỂN SANG GA6789 NÂNG CẤP &amp; NHẬN THƯỞNG" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/2de79469-5510-46e1-a483-86f33699f953.jpg" alt="CHUYỂN SANG GA6789 NÂNG CẤP &amp; NHẬN THƯỞNG"></div><div data-promo="KM 100% NẠP ĐẦU CASINO" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/f2ba4fe3-12f4-4e9b-a3bd-083e83395149.jpg" alt="KM 100% NẠP ĐẦU CASINO"></div><div data-promo="NẠP 188K TẶNG 200K" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/14f4c151-b69d-457d-a7c0-40740f22c68d.jpg" alt="NẠP 188K TẶNG 200K"></div><div data-promo="KHUYẾN MÃI NẠP ĐẦU 100% NỔ HŨ - BẮN CÁ" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/b1504ffa-30bb-4aa7-af75-829c013f59db.jpg" alt="KHUYẾN MÃI NẠP ĐẦU 100% NỔ HŨ - BẮN CÁ"></div><div data-promo="KHUYẾN MÃI TỔNG CƯỢC HỢP LỆ" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/f72181f0-3eb5-4212-afc7-f411ba362688.jpg" alt="KHUYẾN MÃI TỔNG CƯỢC HỢP LỆ"></div><div data-promo="KM 300% NẠP ĐẦU TẠI THỂ  THAO" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/76b0c4d5-e686-46af-bb47-91ace6393c54.jpg" alt="KM 300% NẠP ĐẦU TẠI THỂ  THAO"></div><div data-promo="KHUYẾN MÃI THẮNG/THUA LIÊN TIẾP" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/701b2b55-2c46-4efa-a0e9-385349f22209.jpg" alt="KHUYẾN MÃI THẮNG/THUA LIÊN TIẾP"></div><div data-promo="KHUYẾN MÃI VÉ CƯỢC MAY MẮN" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/22718f18-64a6-4fc9-a75a-57b096438225.jpg" alt="KHUYẾN MÃI VÉ CƯỢC MAY MẮN"></div><div data-promo="CHÀO MỪNG VIP HỘI TỤ" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/74df8d9d-adfa-4c4b-bd43-8388598265eb.jpg" alt="CHÀO MỪNG VIP HỘI TỤ"></div><div data-promo="KM 100% NẠP ĐẦU ĐÁ GÀ" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/bdbfc1e2-513d-4746-bcdb-5f623ec0c800.jpg" alt="KM 100% NẠP ĐẦU ĐÁ GÀ"></div><div data-promo="TỔNG ÂM TUẦN THỂ THAO" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/dfd0cc94-8d37-4ae2-941b-07c5b759ee2e.jpg" alt="TỔNG ÂM TUẦN THỂ THAO"></div><div data-promo="TỔNG ÂM TUẦN ĐÁ GÀ" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/a23a039d-b36b-4eca-85eb-266b083dd65a.jpg" alt="TỔNG ÂM TUẦN ĐÁ GÀ"></div><div data-promo="ĐẶC QUYỀN VIP GA6789" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/32babe64-f886-4323-8472-7225a99287d8.jpg" alt="ĐẶC QUYỀN VIP GA6789"></div><div data-promo="HOÀN TRẢ VÔ HẠN MỖI NGÀY" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/f01334a6-85a5-4662-bf64-83df7132cabf.jpg" alt="HOÀN TRẢ VÔ HẠN MỖI NGÀY"></div><div data-promo="NẠP LẠI TẶNG 10% MỖI NGÀY" class="promo-banner-item"><img src="/img.alltocon.com/img/vi6prod/promos/1376cd2e-1d04-49d1-966c-e46c08ceb95a.jpg" alt="NẠP LẠI TẶNG 10% MỖI NGÀY"></div></div></div></div></div></div><div class="bottom-nav"><ul><li class="nav-home"><i class="d20_account_home"></i><h3>Trang chủ</h3></li><li class="nav-promo current"><i class="d20_account_gift"></i><h3>Khuyến mãi</h3></li><li class="nav-deposit"><i class="d20_account_deposit2"></i><h3>Nạp tiền</h3></li><li class="nav-withdrawal"><i class="d20_account_withdrawal1"></i><h3>Rút tiền</h3></li><li class="nav-cs"><i class="d20_contact_cs"></i><h3>Liên hệ</h3></li><li class="nav-account"><i class="d20_account_account"></i><h3>Tài khoản</h3></li></ul></div></div></div><div id="modal-root"></div><script>/* REPLACE START */
+      /* REPLACE END */</script><template id="lazy-load-script-section"></template><script>// setTimeout(function () {
+      //   if (!window.appIsMounted) {
+      //     document.getElementById('root').innerHTML = '<div class="app-failure"><h1>Connector break</h1><div class="cont">Page cannot be accessed. Please confirm the following conditions:<ul><li>Operating system too old </br><span>(iOS 10.0+/Android 5.0+ supported)</span></li><li>Browser version too old or SSL connection error</br><span>(Recommend Chrome 50+)</span></li><li>Good network environment</li><span class="version-hash">"751040662b84c760368be9a67d18442423e0683e"</span></ul></div><a href="/" class="btn-refresh">Refresh</a></div>';
+      //   }
+      // }, 15000);</script><script>window.addEventListener('load', () => {
+        try {
+          const tpl = document.getElementById('lazy-load-script-section');
+          if (tpl && tpl.content && tpl.content.hasChildNodes()) {
+            const frag = tpl.content.cloneNode(true);
+            document.body.appendChild(frag);
+          }
+        } catch (e) {
+          console.log('script load Error : ', e);
+        }
+        try {
+          const existingManifest = document.querySelector('link[rel="manifest"]');
+          if (!existingManifest) {
+            const link = document.createElement('link');
+            link.rel = 'manifest';
+            link.href = '/manifest.json';
+            document.head.appendChild(link);
+          }
+        } catch (e) {
+          console.log('manifest load Error : ', e);
+        }
+      });</script><div class="version-hash" style="display:none;">"751040662b84c760368be9a67d18442423e0683e"</div><script defer="" src="/static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;ef82d8df4f394cd2bfec5921847bf47e&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+<script src="/js/auth.js"></script>
+</body></html>

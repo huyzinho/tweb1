@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="vi" class="loaded" data-react-helmet="lang" style="--swiper-theme-color: #fff; --platform-color-highlight: #3d7fc5; --window-inner-height: 812px;"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><link rel="shortcut icon" href="/favicons/vi6prod.ico"><meta name="referrer" content="origin"><meta name="google" content="notranslate"><title>GA6789</title><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="preconnect" href="https://img.alltocon.com"><link rel="dns-prefetch" href="https://img.alltocon.com"><link rel="preconnect" href="https://api.ga6789x7.com"><link rel="dns-prefetch" href="https://api.ga6789x7.com"><style>.app-loading-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #e4e5e5;
+    z-index: 1;
+  }
+
+  html.loaded {
+    #p-img,
+    .app-loading-bg {
+      display: none;
+    }
+  }
+ 
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    display: none;
+  }
+
+  .app-loading-custom {
+    position: fixed;
+    background-color: #e4e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: calc(100vh - env(safe-area-inset-bottom));
+    color: #666;
+    font-family: -apple-system-font, Helvetica Neue, PingFang SC, STHeitiSC-Light, Arial, sans-serif;
+    z-index: 99999999;
+
+    > div {
+      min-height: 200px;
+      > h2 {
+        margin: 0.83em 0;
+      }
+
+      > p {
+        margin: 1em 0;
+      }
+    }
+    .brand-img-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+      width: 70vw;
+      max-width: 600px;
+    }
+  }
+
+  .app-loading.hide {
+    opacity: 0;
+  }
+
+  .app-loading,
+  .app-failure {
+    position: fixed;
+    background-color: #212534;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-family: -apple-system-font, Helvetica Neue, PingFang SC, STHeitiSC-Light, Arial, sans-serif;
+    z-index: 99999999;
+  }
+  .app-loading .loading-icon,
+  .app-failure .loading-icon {
+    width: 30px;
+  }
+  .loading-cont {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto;
+    font-size: 19px;
+    opacity: 0.6;
+    min-height: 30px;
+  }
+  .app-loading .logo,
+  .app-failure .logo {
+    width: 80%;
+    max-width: 300px;
+  }
+  .app-failure h1 {
+    width: 100%;
+    color: #efefef;
+    font-size: 28px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .app-failure .cont {
+    padding: 0 20px;
+  }
+  .app-failure .cont span {
+    font-size: 14px;
+  }
+  .app-failure li {
+    margin: 10px 0;
+  }
+  .app-failure .btn-refresh {
+    display: block;
+    text-decoration: none;
+    margin-top: 10px;
+    line-height: 42px;
+    width: 120px;
+    text-align: center;
+    color: #666;
+    border: 1px solid #888;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 800;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  }
+  .app-failure .cont span.version-hash {
+    font-size: 12px;
+  }
+  @property --rotate {
+    syntax: '<angle>';
+    initial-value: 132deg;
+    inherits: false;
+  }
+  :root {
+    --card-height: 65vh;
+    --card-width: 70vw;
+  }
+  .main-cont {
+    box-sizing: border-box;
+    background: rgba(25, 28, 41, 0.95);
+    width: var(--card-width);
+    height: var(--card-height);
+    max-width: 600px;
+    padding: 3px;
+    position: relative;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .main-cont .brand .loading-msg {
+    padding: 0 5px;
+    margin: 0.3em 0 0.83em 0;
+  }
+  .main-cont .brand .loading-msg,
+  .main-cont .brand .loading-msg b {
+    font-weight: normal;
+    line-height: 1.4;
+    font-size: 19px;
+  }
+  .main-cont .brand {
+    height: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+
+    .brand-img-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+      width: 70vw;
+      max-width: 600px;
+
+      .new-logo {
+        position: absolute;
+        width: 95vw;
+        max-width: 537.5px;
+      }
+    }
+  }
+  .main-cont .brand .loading-msg {
+    width: 100%;
+  }
+  .main-cont .brand .loading-msg b + span {
+    display: none;
+  }
+  .main-cont::before {
+    content: '';
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    border-radius: 13px;
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    position: absolute;
+    z-index: -1;
+    top: -3px;
+    left: -3px;
+    animation: light-spin 4.5s linear infinite;
+  }
+
+  .main-cont::after {
+    position: absolute;
+    content: '';
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    opacity: 1;
+    transition: opacity 0.5s;
+    animation: light-spin 4.5s linear infinite;
+  }
+
+  @keyframes light-spin {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  }</style><script src="https://connect.facebook.net/signals/config/1876521383131167?v=2.9.334&amp;r=stable&amp;domain=www.t12026ga6789.com&amp;hme=d9eb83ce5750216745fae8e2064a8c1ed2255ecaf2468f800b2a146e6168b65e&amp;ex_m=105%2C208%2C156%2C22%2C73%2C74%2C147%2C69%2C68%2C11%2C165%2C91%2C16%2C139%2C128%2C39%2C76%2C79%2C135%2C161%2C167%2C8%2C4%2C5%2C7%2C6%2C3%2C92%2C102%2C168%2C173%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C104%2C61%2C10%2C64%2C98%2C99%2C100%2C106%2C131%2C31%2C29%2C133%2C134%2C130%2C129%2C157%2C77%2C160%2C158%2C159%2C50%2C60%2C124%2C15%2C164%2C45%2C267%2C268%2C266%2C26%2C27%2C28%2C48%2C148%2C78%2C113%2C18%2C20%2C44%2C40%2C42%2C41%2C84%2C93%2C97%2C111%2C146%2C149%2C46%2C112%2C24%2C21%2C120%2C70%2C36%2C151%2C150%2C152%2C143%2C141%2C25%2C35%2C59%2C110%2C163%2C71%2C17%2C154%2C115%2C82%2C67%2C19%2C86%2C87%2C117%2C85%2C137%2C136%2C140%2C162%2C34%2C282%2C298%2C215%2C204%2C62%2C205%2C203%2C301%2C292%2C52%2C216%2C108%2C132%2C81%2C122%2C54%2C47%2C49%2C114%2C121%2C127%2C126%2C58%2C65%2C63%2C153%2C116%2C37%2C32%2C53%2C56%2C101%2C166%2C1%2C125%2C14%2C123%2C12%2C2%2C57%2C94%2C66%2C119%2C90%2C89%2C169%2C170%2C95%2C96%2C9%2C103%2C51%2C144%2C88%2C80%2C72%2C118%2C107%2C43%2C145%2C0%2C83%2C138%2C142%2C155%2C38%2C109%2C13%2C171" async=""></script><script async="" src="/connect.facebook.net/en_US/fbevents.js"></script><!-- <script defer="defer" src="/static/js/runtimechunk~main.25a99439.js"></script><script defer="defer" src="/static/js/vendor-moment.31f5b79e.js"></script><script defer="defer" src="/static/js/r16-dom.9673ff4f.js"></script><script defer="defer" src="/static/js/vendor.5882b22c.js"></script><script defer="defer" src="/static/js/main.0e66ecf7.js"></script> --><meta name="apple-mobile-web-app-title" content="GA6789"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#ffffff"><meta name="theme-color" content="#EFEFEF"><link rel="apple-touch-icon" sizes="512x512" href="/icon_512x512.png"><link rel="apple-touch-icon" sizes="384x384" href="/icon_384x384.png"><link rel="apple-touch-icon" sizes="192x192" href="/icon_192x192.png"><link rel="apple-touch-icon" sizes="152x152" href="/icon_152x152.png"><link rel="apple-touch-icon" sizes="144x144" href="/icon_144x144.png"><link rel="apple-touch-icon" sizes="128x128" href="/icon_128x128.png"><link rel="apple-touch-icon" sizes="72x72" href="/icon_72x72.png"><link rel="apple-touch-icon" sizes="96x96" href="/icon_96x96.png"><link rel="manifest" href="/manifest.json"><link rel="preload" as="script" href="/static/js/i18n-vi-VN.9a00b92f.js">
+<link rel="stylesheet" type="text/css" href="/static/stylesheets/206.d4cde7e6.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/6569.b3db9391.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-home.11b11621.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-login.cbbf1dbf.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-signup.36b1c1b4.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-promo.a573523d.css"><script>
+        !(function (f, b, e, v, n, t, s) {
+          if (f.fbq) return;
+          n = f.fbq = function () {
+            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = '2.0';
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(window, document, 'script', '/connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1876521383131167');
+        fbq('track', 'PageView');</script><link rel="stylesheet" type="text/css" href="/static/stylesheets/300.1da82308.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-reg-ro.ad92be62.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-spdpum.fb5479af.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-addhs.e02e05ce.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-act.6d439166.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-cs.bd7bb00c.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-adFloatingGame.34d948cf.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/4259.65c1fa99.css"><meta name="description" content="GA6789" data-react-helmet="true"><link rel="stylesheet" type="text/css" href="/static/stylesheets/664.a56518c6.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-ca.0729712a.css"><link rel="stylesheet" type="text/css" href="/static/stylesheets/m-home-lobby.df76ebc3.css"></head><body><div id="root" style="display: block;"><div class="app gamelobby chess"><div style="display: none;"></div><div class="float-center-ads-modal"><div><div style="position: fixed; transform: translate3d(-50%, -50%, 0px); top: 46%; left: 50%; z-index: 1050;"><div class="nrc-modal fade-in" tabindex="-1" style="margin: 0px; background-color: white; outline: none;"><div class="iconClose"><img width="100%" src="/static/media/btn-delete-gray.5615478f..svg" alt="modal-close-button"></div><div class="ads-banner"><div class="nrc-carousel"><div class="carousel-wrapper"><div class="carousel-item active"><div class="img-wrapper"><div class="img" style="background-image: url(&quot;/img.alltocon.com/img/vi6prod/floatingads/e668f6c6-523a-4f59-b9db-42e05dbf4c9f.jpg&quot;);"></div><div class="info">BẢO HIỂM VÉ CƯỢC WORLD CUP LÊN ĐẾN 100%</div></div></div><div class="carousel-item"><div class="img-wrapper"><div class="img" style="background-image: url(&quot;/img.alltocon.com/img/vi6prod/floatingads/cb516894-3052-4a07-b514-acd80a3d7d8a.jpg&quot;);"></div><div class="info">NẠP 188K TẶNG 200K</div></div></div><div class="carousel-item"><div class="img-wrapper"><div class="img" style="background-image: url(&quot;/img.alltocon.com/img/vi6prod/floatingads/37511cd4-f416-4014-bb98-7c1da6eef8b0.jpg&quot;);"></div><div class="info">CHUYỂN SANG GA6789 NÂNG CẤP &amp; NHẬN THƯỞNG</div></div></div><div class="carousel-item"><div class="img-wrapper"><div class="img" style="background-image: url(&quot;/img.alltocon.com/img/vi6prod/floatingads/754b60fe-dd4d-41bd-860c-33cca72c302b.jpg&quot;);"></div><div class="info">KHUYẾN MÃI VÉ CƯỢC MAY MẮN</div></div></div></div><div class="carousel-control prev"><div class="icon"><i class="mps-arrow-left"></i></div></div><div class="carousel-control next"><div class="icon"><i class="mps-arrow-right"></i></div></div><ol class="carousel-indicators"><li class="active" data-index="0"></li><li class="" data-index="1"></li><li class="" data-index="2"></li><li class="" data-index="3"></li></ol></div></div></div></div><div class="fade-in" style="position: fixed; inset: 0px; z-index: 1040; background-color: rgba(0, 0, 0, 0.65);"></div></div></div><div class="add-main ios"><div class="close-mask"></div><div class="add-main-tips"><div class="add-main-wrap"><img class="appicon" src="/img.alltocon.com/img/static/pwa/vi6prod.png" alt="appicon" loading="eager"><div class="des">Nhấp<span>vào đây</span><img alt="" src="/img.alltocon.com/img/static/mobile/icon-share.png" class="icon-share"> Thêm GA6789 vào trang chính</div><div class="dontshow">Không nhắc thêm</div></div></div></div><div class="app-body nav-bar"><div class="app-home chess template-col1"><header class="home-header"><div class="logo"><img src="/img.alltocon.com/img/static/mobile/brand/vi6prod/logo.png" class="" alt="" width="150" height="30"></div><div class="tools"><a class="tools-item" href="/signup"><i class="d20_small_account"></i><span>Đăng ký</span></a><a class="tools-item" id="login-btn" href="/login"><i class="d20_small_login"></i><span>Đăng nhập</span></a><a class="tools-item" href="/inbox"><img src="/img.alltocon.com/img/static/yabo/mobile/icon_msg_center.png" alt="icon_msg_center"></a></div></header><div class="home-banner-top"><div class="carousel-banner-container banner"><div class="swiper swiper-initialized swiper-horizontal swiper-ios"><div class="swiper-button-prev"></div><div class="swiper-button-next"></div><div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-bullets-dynamic" style="width: 80px;"><span class="swiper-pagination-bullet swiper-pagination-bullet-active swiper-pagination-bullet-active-main" style="left: 32px;"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active-next" style="left: 32px;"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active-next-next" style="left: 32px;"></span><span class="swiper-pagination-bullet" style="left: 32px;"></span><span class="swiper-pagination-bullet" style="left: 32px;"></span><span class="swiper-pagination-bullet" style="left: 32px;"></span><span class="swiper-pagination-bullet" style="left: 32px;"></span></div><div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(-2625px, 0px, 0px);"><div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0"><img src="/img.alltocon.com/img/vi6prod/ads/ff6dc429-4903-463a-98d0-c40f87509676.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="1"><img src="/img.alltocon.com/img/vi6prod/ads/9fb6ae84-5a54-4a3a-b386-cf81c684bbee.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2"><img src="/img.alltocon.com/img/vi6prod/ads/408f197d-3939-4e73-bad5-8f4a46f02dff.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="3"><img src="/img.alltocon.com/img/vi6prod/ads/22d6f984-a3d7-43cf-a870-292616e3da53.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="4"><img src="/img.alltocon.com/img/vi6prod/ads/1595e34a-0aa6-4081-94a4-89464b545377.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="5"><img src="/img.alltocon.com/img/vi6prod/ads/dd59491e-d5f8-4a6e-8fb4-ea8fa5dc1546.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate swiper-slide-prev" data-swiper-slide-index="6"><img src="/img.alltocon.com/img/vi6prod/ads/7102f99f-8b12-44b5-92a7-45ea0df54c05.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-active" data-swiper-slide-index="0"><img src="/img.alltocon.com/img/vi6prod/ads/ff6dc429-4903-463a-98d0-c40f87509676.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-next" data-swiper-slide-index="1"><img src="/img.alltocon.com/img/vi6prod/ads/9fb6ae84-5a54-4a3a-b386-cf81c684bbee.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide" data-swiper-slide-index="2"><img src="/img.alltocon.com/img/vi6prod/ads/408f197d-3939-4e73-bad5-8f4a46f02dff.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide" data-swiper-slide-index="3"><img src="/img.alltocon.com/img/vi6prod/ads/22d6f984-a3d7-43cf-a870-292616e3da53.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide" data-swiper-slide-index="4"><img src="/img.alltocon.com/img/vi6prod/ads/1595e34a-0aa6-4081-94a4-89464b545377.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide" data-swiper-slide-index="5"><img src="/img.alltocon.com/img/vi6prod/ads/dd59491e-d5f8-4a6e-8fb4-ea8fa5dc1546.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate-prev" data-swiper-slide-index="6"><img src="/img.alltocon.com/img/vi6prod/ads/7102f99f-8b12-44b5-92a7-45ea0df54c05.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0"><img src="/img.alltocon.com/img/vi6prod/ads/ff6dc429-4903-463a-98d0-c40f87509676.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="1"><img src="/img.alltocon.com/img/vi6prod/ads/9fb6ae84-5a54-4a3a-b386-cf81c684bbee.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2"><img src="/img.alltocon.com/img/vi6prod/ads/408f197d-3939-4e73-bad5-8f4a46f02dff.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="3"><img src="/img.alltocon.com/img/vi6prod/ads/22d6f984-a3d7-43cf-a870-292616e3da53.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="4"><img src="/img.alltocon.com/img/vi6prod/ads/1595e34a-0aa6-4081-94a4-89464b545377.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="5"><img src="/img.alltocon.com/img/vi6prod/ads/dd59491e-d5f8-4a6e-8fb4-ea8fa5dc1546.jpg" loading="lazy" alt="GA6789"></div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="6"><img src="/img.alltocon.com/img/vi6prod/ads/7102f99f-8b12-44b5-92a7-45ea0df54c05.jpg" loading="lazy" alt="GA6789"></div></div></div></div></div><a href="/news"><div class="home-news"><div class="marquee-wrap news"><div class="visible-area"><div class="marquee-content scrollLeft" style="animation-delay: 2s; animation-duration: 10.9s;"><span class="marquee-item" data-nosnippet="true">Chào mừng GA6789</span></div></div></div><span class="news-title"><i class="mps-news"></i></span></div></a><div class="wallet-item"><div class="notlogin"><span>Đăng nhập</span><span>/</span><span>Đăng ký</span></div></div><div class="swiper swiper-initialized swiper-vertical swiper-ios home-swiper-nav" id="Swiper-nav"><div class="swiper-wrapper"><div class="swiper-slide nav-anchor home-quick-item navigation-PRODUCT swiper-slide-active" data-code="ANIMAL"><div><h3>Đá Gà / Đua Ngựa</h3></div></div><div class="swiper-slide nav-anchor home-quick-item navigation-PRODUCT swiper-slide-next" data-code="SPORTS"><div><h3>Thể thao</h3></div></div><div class="swiper-slide nav-anchor home-quick-item navigation-PRODUCT" data-code="LIVE"><div><h3>Sòng bài</h3></div></div><div class="swiper-slide nav-anchor home-quick-item navigation-PRODUCT" data-code="EGAME"><div><h3>Trò chơi</h3></div></div><div class="swiper-slide nav-anchor home-quick-item navigation-PRODUCT" data-code="MPG"><div><h3>Bắn cá</h3></div></div><div class="swiper-slide nav-anchor home-quick-item navigation-PRODUCT" data-code="ESPORTS"><div><h3>E-Sports</h3></div></div><div class="swiper-slide nav-anchor home-quick-item navigation-PRODUCT active" data-code="CHESS"><div><h3>Chess</h3></div></div><div class="swiper-slide nav-anchor home-quick-item navigation-PRODUCT" data-code="LOTTERY"><div><h3>Xổ số</h3></div></div><div class="swiper-slide nav-anchor home-quick-item navigation-FIX_PAGE" data-code="PROMOTIONS"><div><h3>Khuyến mãi</h3></div></div><div class="swiper-slide nav-anchor home-quick-item navigation-FIX_PAGE" data-code="PAGE_QR"><div><h3>Tải ứng dụng</h3></div></div><div class="swiper-slide nav-anchor home-quick-item navigation-FIX_PAGE" data-code="MY_VIP"><div><h3>VIP</h3></div></div><div class="swiper-slide nav-anchor home-quick-item navigation-CUSTOM_PAGE" data-code="https://www.11fa75-12.xyz/ulagent/apply"><div><h3>ĐẠI LÝ</h3></div></div></div></div><div class="home-gamelobby chess"><div class="game-wrap"><div class="game-block"><div class="home-cate" id="chess"></div><div class="home-list" data-type="Chess"><div data-id="CHESS-EVOPLAY" data-type="CHESS" data-gp="evoplay" class="game-item EVOPLAY default-col"><div class="game-content"><div class="game-logo" style="background-image: url(&quot;/img.alltocon.com/img/static/gplogo/h-primary/evoplay.png&quot;);"></div><div class="game-col-cover" style="visibility: visible; background-image: url(&quot;/img.alltocon.com/img/static/col_cover/chess_evoplay.png&quot;);"></div></div><div class="game-info"><h3 gp="EVOPLAY" style="background-image: url(&quot;/img.alltocon.com/img/static/gplogo/v-primary/evoplay.png&quot;); visibility: visible;">EVOPLAY</h3><div class="pd-name" data-type="CHESS">EVOPLAY</div><button>Bắt đầu</button></div><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div></div><div data-id="CHESS-LC" data-type="CHESS" data-gp="lc" class="game-item LC default-col"><div class="game-content"><div class="game-logo" style="background-image: url(&quot;/img.alltocon.com/img/static/gplogo/h-primary/lc.png&quot;);"></div><div class="game-col-cover" style="visibility: visible; background-image: url(&quot;/img.alltocon.com/img/static/col_cover/chess_lc.png&quot;);"></div></div><div class="game-info"><h3 gp="LC" style="background-image: url(&quot;/img.alltocon.com/img/static/gplogo/v-primary/lc.png&quot;); visibility: visible;">LC</h3><div class="pd-name" data-type="CHESS">LC</div><button>Bắt đầu</button></div><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div></div><div data-id="CHESS-RICH88" data-type="CHESS" data-gp="rich88" class="game-item RICH88 default-col"><div class="game-content"><div class="game-logo" style="background-image: url(&quot;/img.alltocon.com/img/static/gplogo/h-primary/rich88.png&quot;);"></div><div class="game-col-cover" style="visibility: visible; background-image: url(&quot;/img.alltocon.com/img/static/col_cover/chess_rich88.png&quot;);"></div></div><div class="game-info"><h3 gp="RICH88" style="background-image: url(&quot;/img.alltocon.com/img/static/gplogo/v-primary/rich88.png&quot;); visibility: visible;">RICH88</h3><div class="pd-name" data-type="CHESS">RICH88</div><button>Bắt đầu</button></div><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div></div><div data-id="CHESS-KINGMAKER" data-type="CHESS" data-gp="kingmaker" class="game-item KINGMAKER default-col"><div class="game-content"><div class="game-logo" style="background-image: url(&quot;/img.alltocon.com/img/static/gplogo/h-primary/kingmaker.png&quot;);"></div><div class="game-col-cover" style="visibility: visible; background-image: url(&quot;/img.alltocon.com/img/static/col_cover/chess_kingmaker.png&quot;);"></div></div><div class="game-info"><h3 gp="KINGMAKER" style="background-image: url(&quot;/img.alltocon.com/img/static/gplogo/v-primary/kingmaker.png&quot;); visibility: visible;">KINGMAKER</h3><div class="pd-name" data-type="CHESS">KINGMIDAS</div><button>Bắt đầu</button></div><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div></div><div data-id="CHESS-BAISON" data-type="CHESS" data-gp="baison" class="game-item BAISON default-col"><div class="game-content"><div class="game-logo" style="background-image: url(&quot;/img.alltocon.com/img/static/gplogo/h-primary/baison.png&quot;);"></div><div class="game-col-cover" style="visibility: visible; background-image: url(&quot;/img.alltocon.com/img/static/col_cover/chess_baison.png&quot;);"></div></div><div class="game-info"><h3 gp="BAISON" style="background-image: url(&quot;/img.alltocon.com/img/static/gplogo/v-primary/baison.png&quot;); visibility: visible;">BAISON</h3><div class="pd-name" data-type="CHESS">BAISON</div><button>Bắt đầu</button></div><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div></div><div data-id="CHESS-BBIN2" data-type="CHESS" data-gp="bbin2" class="game-item BBIN2"><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div><div class="loading-skeleton-wrapper"><span aria-live="polite" aria-busy="true"><span class="react-loading-skeleton loading-skeleton" style="--base-color: transparent;">‌</span><br></span></div></div><div data-id="CHESS-BTGAMING" data-type="CHESS" data-gp="btgaming" class="game-item BTGAMING"><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div><div class="loading-skeleton-wrapper"><span aria-live="polite" aria-busy="true"><span class="react-loading-skeleton loading-skeleton" style="--base-color: transparent;">‌</span><br></span></div></div><div data-id="CHESS-CARD365" data-type="CHESS" data-gp="card365" class="game-item CARD365"><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div><div class="loading-skeleton-wrapper"><span aria-live="polite" aria-busy="true"><span class="react-loading-skeleton loading-skeleton" style="--base-color: transparent;">‌</span><br></span></div></div><div data-id="CHESS-CQ9" data-type="CHESS" data-gp="cq9" class="game-item CQ9"><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div><div class="loading-skeleton-wrapper"><span aria-live="polite" aria-busy="true"><span class="react-loading-skeleton loading-skeleton" style="--base-color: transparent;">‌</span><br></span></div></div><div data-id="CHESS-EAZY_GAMING" data-type="CHESS" data-gp="eazy_gaming" class="game-item EAZY_GAMING"><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div><div class="loading-skeleton-wrapper"><span aria-live="polite" aria-busy="true"><span class="react-loading-skeleton loading-skeleton" style="--base-color: transparent;">‌</span><br></span></div></div><div data-id="CHESS-JDB" data-type="CHESS" data-gp="jdb" class="game-item JDB"><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div><div class="loading-skeleton-wrapper"><span aria-live="polite" aria-busy="true"><span class="react-loading-skeleton loading-skeleton" style="--base-color: transparent;">‌</span><br></span></div></div><div data-id="CHESS-JILI" data-type="CHESS" data-gp="jili" class="game-item JILI"><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div><div class="loading-skeleton-wrapper"><span aria-live="polite" aria-busy="true"><span class="react-loading-skeleton loading-skeleton" style="--base-color: transparent;">‌</span><br></span></div></div><div data-id="CHESS-MG" data-type="CHESS" data-gp="mg" class="game-item MG"><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div><div class="loading-skeleton-wrapper"><span aria-live="polite" aria-busy="true"><span class="react-loading-skeleton loading-skeleton" style="--base-color: transparent;">‌</span><br></span></div></div><div data-id="CHESS-PT" data-type="CHESS" data-gp="pt" class="game-item PT"><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div><div class="loading-skeleton-wrapper"><span aria-live="polite" aria-busy="true"><span class="react-loading-skeleton loading-skeleton" style="--base-color: transparent;">‌</span><br></span></div></div><div data-id="CHESS-RG" data-type="CHESS" data-gp="rg" class="game-item RG"><div class="favorite-game-icon-wrapper"><div class="fav-btn"></div></div><div class="loading-block"></div><div class="loading-skeleton-wrapper"><span aria-live="polite" aria-busy="true"><span class="react-loading-skeleton loading-skeleton" style="--base-color: transparent;">‌</span><br></span></div></div></div></div></div></div><div></div></div></div><div class="bottom-nav bottom-nav-template-col1"><ul><li class="nav-home"><i class="d20_account_home"></i><h3>Trang chủ</h3></li><li class="nav-promo"><i class="d20_account_gift"></i><h3>Khuyến mãi</h3></li><li class="nav-deposit"><i class="d20_account_deposit2"></i><h3>Nạp tiền</h3></li><li class="nav-withdrawal"><i class="d20_account_withdrawal1"></i><h3>Rút tiền</h3></li><li class="nav-cs"><i class="d20_contact_cs"></i><h3>Liên hệ</h3></li><li class="nav-account"><i class="d20_account_account"></i><h3>Tài khoản</h3></li></ul></div></div><div class="event-qmenu menu-close"><div class="handle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 70"><path d="M0,1.3l0,67.4c0.5-1.3,1.2-2.6,1.9-3.8c2-3.3,4.2-5.7,8.4-9.6l1.5-1.4C19.3,47,22,42.8,22,35s-2.7-12-10.2-18.9c-0.2-0.2-1.2-1.1-1.5-1.4c-4.2-3.9-6.5-6.3-8.4-9.6C1.2,3.9,0.5,2.6,0,1.3L0,1.3z"></path></svg></div><div class="cont"></div></div></div><div id="modal-root"></div><script>/* REPLACE START */
+      /* REPLACE END */</script><template id="lazy-load-script-section"></template><script>// setTimeout(function () {
+      //   if (!window.appIsMounted) {
+      //     document.getElementById('root').innerHTML = '<div class="app-failure"><h1>Connector break</h1><div class="cont">Page cannot be accessed. Please confirm the following conditions:<ul><li>Operating system too old </br><span>(iOS 10.0+/Android 5.0+ supported)</span></li><li>Browser version too old or SSL connection error</br><span>(Recommend Chrome 50+)</span></li><li>Good network environment</li><span class="version-hash">"751040662b84c760368be9a67d18442423e0683e"</span></ul></div><a href="/" class="btn-refresh">Refresh</a></div>';
+      //   }
+      // }, 15000);</script><script>window.addEventListener('load', () => {
+        try {
+          const tpl = document.getElementById('lazy-load-script-section');
+          if (tpl && tpl.content && tpl.content.hasChildNodes()) {
+            const frag = tpl.content.cloneNode(true);
+            document.body.appendChild(frag);
+          }
+        } catch (e) {
+          console.log('script load Error : ', e);
+        }
+        try {
+          const existingManifest = document.querySelector('link[rel="manifest"]');
+          if (!existingManifest) {
+            const link = document.createElement('link');
+            link.rel = 'manifest';
+            link.href = '/manifest.json';
+            document.head.appendChild(link);
+          }
+        } catch (e) {
+          console.log('manifest load Error : ', e);
+        }
+      });</script><div class="version-hash" style="display:none;">"751040662b84c760368be9a67d18442423e0683e"</div><script defer="" src="/static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;ef82d8df4f394cd2bfec5921847bf47e&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+<script src="/js/auth.js"></script>
+</body></html>

@@ -1,0 +1,374 @@
+html{
+    -ms-text-size-adjust:100%;
+    -webkit-text-size-adjust:100%;
+    font-family:'Microsoft YaHei', 'Microsoft JhengHei', 'PingFangTC', Helvetica;
+}
+body{margin:0;}
+a:active, a:hover{outline:0;}
+html, body{
+    -webkit-text-size-adjust:none;
+    -webkit-overflow-scrolling:touch;
+    width:100%;
+    height:100%;
+    background-color:#3d1b58;
+    position: relative;
+}
+html, body, #app_download_box{min-width:320px;}
+@-moz-keyframes app_icon_shadow {
+    0% {
+        box-shadow: 0 0 0 0px rgba(255,255,255,0.3),
+                    0 0 0 0px rgba(255,255,255,0.3),
+                    0 0 0 0px rgba(255,255,255,0.2),
+                    0 0 0 0px rgba(255,255,255,0.1);
+    }
+    100% {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.3),
+                    0 0 0 8px rgba(255,255,255,0.3),
+                    0 0 0 12px rgba(255,255,255,0.2),
+                    0 0 0 16px rgba(255,255,255,0.1);
+    }
+}
+@-webkit-keyframes app_icon_shadow {
+    0% {
+        box-shadow: 0 0 0 0px rgba(255,255,255,0.3),
+                    0 0 0 0px rgba(255,255,255,0.3),
+                    0 0 0 0px rgba(255,255,255,0.2),
+                    0 0 0 0px rgba(255,255,255,0.1);
+    }
+    100% {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.3),
+                    0 0 0 8px rgba(255,255,255,0.3),
+                    0 0 0 12px rgba(255,255,255,0.2),
+                    0 0 0 16px rgba(255,255,255,0.1);
+    }
+}
+@keyframes app_icon_shadow{
+    0% {
+        box-shadow: 0 0 0 0px rgba(255,255,255,0.3),
+                    0 0 0 0px rgba(255,255,255,0.3),
+                    0 0 0 0px rgba(255,255,255,0.2),
+                    0 0 0 0px rgba(255,255,255,0.1);
+    }
+    100% {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.3),
+                    0 0 0 8px rgba(255,255,255,0.3),
+                    0 0 0 12px rgba(255,255,255,0.2),
+                    0 0 0 16px rgba(255,255,255,0.1);
+    }
+}
+#app_download_box, #app_download_box > a, #app_download_box .duo-app .down-link > a {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    -webkit-justify-content:center;
+    -moz-justify-content:center;
+    -ms-justify-content:center;
+    -o-justify-content:center;
+    justify-content: flex-start;
+    -webkit-align-items:center;
+    -moz-align-items:center;
+    -ms-align-items:center;
+    -o-align-items:center;
+    align-items:center;
+}
+
+#app_download_box{
+    color:#fff;
+    font-size:16px;
+    line-height:1;
+    max-width:768px;
+    min-height:100%;
+    padding:30px 0 50px;
+    background:url("/app.appjson.net/public/app-download-bg.jpg") no-repeat center/cover;
+    margin:0 auto;
+    box-sizing: border-box;
+    -webkit-flex-direction:column;
+    -moz-flex-direction:column;
+    -ms-flex-direction:column;
+    -o-flex-direction:column;
+    flex-direction:column;
+}
+
+#app_download_box a svg {
+    flex:0 0 24px;
+    margin-left: 20px;
+}
+
+#app_icon{
+    width: 138px;
+    flex:0 0 138px;
+    border-radius:30px;
+    overflow: hidden;
+    position: relative;
+    /*-webkit-animation:app_icon_shadow 1s infinite alternate both;
+    -moz-animation:app_icon_shadow 1s infinite alternate both;
+    -ms-animation:app_icon_shadow 1s infinite alternate both;
+    -o-animation:app_icon_shadow 1s infinite alternate both;
+    animation:app_icon_shadow 1s infinite alternate both;*/
+}
+#app_icon:after{
+    /*content:"";
+    width: 100%;
+    height: 100%;
+    border-radius:30px;
+    box-shadow:0 0 12px 1px rgba(0,0,0,0.6) inset;
+    position:absolute;
+    top:0;
+    left:0;*/
+}
+#app_icon > img{
+    vertical-align:top;
+    border:0;
+}
+#app_download_box > h1{
+    font-size: 28px;
+    font-weight:300;
+    /*text-shadow:1px 1px 6px #575aa7;*/
+    margin:6px auto 16px;
+    font-weight: 400;
+    -webkit-transform:skew(-3deg);
+    -moz-transform:skew(-3deg);
+    -ms-transform:skew(-3deg);
+    -o-transform:skew(-3deg);
+    transform:skew(-3deg);
+}
+#app_download_box > p{
+    font-weight: normal;
+    /*text-shadow:0 1px 6px #575aa7;*/
+    margin:0 auto 36px;
+}
+#app_download_box > a,
+#app_download_box .duo-app .down-link > a {
+    color:#fff;
+    font-weight: bold;
+    text-decoration:none;
+    width: 280px;
+    height: auto;
+    padding: 10px 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    background-color:transparent;
+    border-radius:60px;
+    box-shadow:0 0 0 1px #fff inset;
+}
+
+#app_download_box .duo-app {
+    margin: 0px 0 25px;
+}
+
+#app_download_box .duo-app .duo-app-tit {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+#app_download_box .duo-app .duo-app-tit svg {
+    margin-right: 10px;
+}
+
+#app_download_box .duo-app .down-link {
+    display: flex;
+    width: 280px;
+    margin: 10px 0;
+    justify-content: space-between;
+}
+
+#app_download_box .duo-app .tips {
+    font-size: 11px;
+    margin: 0;
+    font-weight: normal;
+    text-align: center;
+}
+
+#app_download_box .duo-app .tips p {
+    margin: 5px 0;
+}
+
+#app_download_box .duo-app .down-link > a {
+    width: 49%;
+}
+
+#app_download_box > a + a,
+#app_download_box > #copy-link {
+    margin-top: 15px;
+    height: 44px;
+}
+#app_download_box span{
+    line-height: 22px;
+    font-weight: 400;
+    /* vertical-align:super; */
+    margin-left:10px;
+}
+#app_download_box span p {
+    font-size: 11px;
+    margin: 0;
+    font-weight: normal;
+    white-space: nowrap;
+}
+#app_download_box path{fill:#fff;}
+@media screen and (max-width: 767px) and (orientation:landscape){
+    #app_download_box{padding: 45px 0;}
+}
+#wechat_faq {
+  margin-top: 24px;
+}
+#wechat_faq a {
+  color: #eee;
+  text-decoration: none;
+}
+
+#page-url {
+    font-size: 0;
+    height: 0;
+}
+
+#copy-link {
+  text-decoration: none;
+  color: #fff;
+}
+
+#guide-url {
+  border-bottom: 1px dotted #fff;
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.chrome-notice {
+    text-align: center;
+    opacity: 0.7;
+    width: 100%;
+    color: #fff8ad;
+    font-size: 9px;
+    line-height: 1.4;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color:rgba(0,0,0,0.2);
+}
+
+.chrome-notice svg {
+    position: absolute;
+    left: 0px;
+    transform: scale(0.5);
+    display: none;
+
+}
+
+#copied-msg {
+    position: fixed;
+    width: 120px;
+    height: 110px;
+    padding-top: 10px;
+    top: calc(50vh - 60px);
+    left: calc(50vw - 60px);
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transform: scale(0);
+}
+#copied-msg h4 {
+    font-weight: normal;
+    font-size: 16px;
+    margin: 0;
+}
+
+#copied-msg.copied {
+    animation: msg-copied 1.5s ease;
+}
+
+@keyframes msg-copied {
+    0% {opacity: 0;transform: scale(0);}
+    10% {opacity: 1;transform: scale(1);}
+    80% {opacity: 1;transform: scale(1);}
+    100% {opacity: 0;transform: scale(0);}
+}
+
+.show-tutorial {
+   font-size: 14px;
+   line-height: 24px;
+   margin-top: 8px; 
+   color: #fff8ad;
+   font-weight: normal;
+   border-bottom: 1px dotted rgba(255,255,255,0.5);
+}
+
+.ios-tutorial {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0);
+    transition: .2s ease;
+}
+
+.ios-tutorial.show {
+    transform: scale(1);
+}
+
+.ios-tutorial .ios-tutorial-cont {
+    position: relative;
+    width: 95%;
+    height: 95%;
+    max-width: 380px;
+    display: block;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.8), 0 1px 10px rgba(0,0,0,.6);
+    overflow: auto;
+    padding: 10px 25px 30px;
+    box-sizing: border-box;
+}
+
+.ios-tutorial .ios-tutorial-cont h2 {
+    font-size: 21px;
+    line-height: 50px;
+    color: #7517b0;
+    margin: 0 0 -20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.ios-tutorial .ios-tutorial-cont h4 {
+    font-size: 15px;
+    font-weight: normal;
+    margin-top: 40px;
+}
+
+.ios-tutorial .ios-tutorial-cont h4 span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    padding-right: 3px;
+}
+
+.ios-tutorial .ios-tutorial-cont img {
+    display: block;
+    width: 100%;
+    box-shadow: 0 1px 5px rgba(0,0,0,.3);
+}
+
+.ios-tutorial .close {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    top: 5px;
+    right: 5px;
+    z-index: 1;
+}
+
+.ios-tutorial .close img {
+    width: 100%;
+}

@@ -1,0 +1,1 @@
+.progress-box{align-items:center;display:flex}.progress-box .progress-bar{border:1px solid #ffba00;border-radius:20px;height:8px;overflow:hidden}.progress-box .progress-bar .progress-line{background-color:#ffba00;height:100%}.progress-box.completed .progress-bar{border:1px solid #75943e}.progress-box.completed .progress-bar .progress-line{background-color:#75943e}

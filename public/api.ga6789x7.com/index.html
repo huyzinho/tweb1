@@ -1,0 +1,261 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/><link rel="shortcut icon" href="/favicons/vi6prod.ico"/><meta name="referrer" content="origin"/><meta name="google" content="notranslate"/><title>GA6789</title><meta http-equiv="x-dns-prefetch-control" content="on"/><link rel="preconnect" href="https://img.alltocon.com"/><link rel="dns-prefetch" href="https://img.alltocon.com"/><link rel="preconnect" href="https://api.ga6789x7.com"/><link rel="dns-prefetch" href="https://api.ga6789x7.com"/><style>.app-loading-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #e4e5e5;
+    z-index: 1;
+  }
+
+  html.loaded {
+    #p-img,
+    .app-loading-bg {
+      display: none;
+    }
+  }
+ 
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    display: none;
+  }
+
+  .app-loading-custom {
+    position: fixed;
+    background-color: #e4e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: calc(100vh - env(safe-area-inset-bottom));
+    color: #666;
+    font-family: -apple-system-font, Helvetica Neue, PingFang SC, STHeitiSC-Light, Arial, sans-serif;
+    z-index: 99999999;
+
+    > div {
+      min-height: 200px;
+      > h2 {
+        margin: 0.83em 0;
+      }
+
+      > p {
+        margin: 1em 0;
+      }
+    }
+    .brand-img-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+      width: 70vw;
+      max-width: 600px;
+    }
+  }
+
+  .app-loading.hide {
+    opacity: 0;
+  }
+
+  .app-loading,
+  .app-failure {
+    position: fixed;
+    background-color: #212534;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-family: -apple-system-font, Helvetica Neue, PingFang SC, STHeitiSC-Light, Arial, sans-serif;
+    z-index: 99999999;
+  }
+  .app-loading .loading-icon,
+  .app-failure .loading-icon {
+    width: 30px;
+  }
+  .loading-cont {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto;
+    font-size: 19px;
+    opacity: 0.6;
+    min-height: 30px;
+  }
+  .app-loading .logo,
+  .app-failure .logo {
+    width: 80%;
+    max-width: 300px;
+  }
+  .app-failure h1 {
+    width: 100%;
+    color: #efefef;
+    font-size: 28px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .app-failure .cont {
+    padding: 0 20px;
+  }
+  .app-failure .cont span {
+    font-size: 14px;
+  }
+  .app-failure li {
+    margin: 10px 0;
+  }
+  .app-failure .btn-refresh {
+    display: block;
+    text-decoration: none;
+    margin-top: 10px;
+    line-height: 42px;
+    width: 120px;
+    text-align: center;
+    color: #666;
+    border: 1px solid #888;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 800;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  }
+  .app-failure .cont span.version-hash {
+    font-size: 12px;
+  }
+  @property --rotate {
+    syntax: '<angle>';
+    initial-value: 132deg;
+    inherits: false;
+  }
+  :root {
+    --card-height: 65vh;
+    --card-width: 70vw;
+  }
+  .main-cont {
+    box-sizing: border-box;
+    background: rgba(25, 28, 41, 0.95);
+    width: var(--card-width);
+    height: var(--card-height);
+    max-width: 600px;
+    padding: 3px;
+    position: relative;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .main-cont .brand .loading-msg {
+    padding: 0 5px;
+    margin: 0.3em 0 0.83em 0;
+  }
+  .main-cont .brand .loading-msg,
+  .main-cont .brand .loading-msg b {
+    font-weight: normal;
+    line-height: 1.4;
+    font-size: 19px;
+  }
+  .main-cont .brand {
+    height: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+
+    .brand-img-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+      width: 70vw;
+      max-width: 600px;
+
+      .new-logo {
+        position: absolute;
+        width: 95vw;
+        max-width: 537.5px;
+      }
+    }
+  }
+  .main-cont .brand .loading-msg {
+    width: 100%;
+  }
+  .main-cont .brand .loading-msg b + span {
+    display: none;
+  }
+  .main-cont::before {
+    content: '';
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    border-radius: 13px;
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    position: absolute;
+    z-index: -1;
+    top: -3px;
+    left: -3px;
+    animation: light-spin 4.5s linear infinite;
+  }
+
+  .main-cont::after {
+    position: absolute;
+    content: '';
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    opacity: 1;
+    transition: opacity 0.5s;
+    animation: light-spin 4.5s linear infinite;
+  }
+
+  @keyframes light-spin {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  }</style><script defer="defer" src="/static/js/runtimechunk~main.7922ce6f.js"></script><script defer="defer" src="/static/js/vendor-moment.31f5b79e.js"></script><script defer="defer" src="/static/js/r16-dom.9673ff4f.js"></script><script defer="defer" src="/static/js/vendor.5882b22c.js"></script><script defer="defer" src="/static/js/main.8191908b.js"></script><meta name="apple-mobile-web-app-title" content="GA6789" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="#ffffff" /><meta name="theme-color" content="#EFEFEF" /><link rel="apple-touch-icon" sizes="512x512" href="/icon_512x512.png" /><link rel="apple-touch-icon" sizes="384x384" href="/icon_384x384.png" /><link rel="apple-touch-icon" sizes="192x192" href="/icon_192x192.png" /><link rel="apple-touch-icon" sizes="152x152" href="/icon_152x152.png" /><link rel="apple-touch-icon" sizes="144x144" href="/icon_144x144.png" /><link rel="apple-touch-icon" sizes="128x128" href="/icon_128x128.png" /><link rel="apple-touch-icon" sizes="72x72" href="/icon_72x72.png" /><link rel="apple-touch-icon" sizes="96x96" href="/icon_96x96.png" /><link rel="manifest" href="/manifest.json" /><link rel="preload" as="script" href="/static/js/i18n-vi-VN.6feeab59.js">
+</head><body><img id="p-img" src="data:image/jpeg;base64,/9j/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wgARCAPoA+gDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAEDAv/EABQBAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhADEAAAAAAAAAAAAAAAAABCoKgqCoKgqAAAAAAAAAAAAAAAAAACoKgqCoKgqCpQAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAEKgqCoKgqUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIKgqCoKgqCoKgqCoKgqAAAAAAAAAAAAAAAAAABYKgqCoKgqCoKgqCoKgqCgAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCoKgqCoKgqCoKgqCoKgqCoKgqCoKgoAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUiiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAAAAgAAAAAAAAAAAAAAAAAAACiKIoiiUAAAAAAAAAIoiiKIoiwAAAAAAAAAAAAAAAAAAAUAAAAIAAAAAAAAAAAAAAAAUigAAAAAAAAAAAAAAAAAAAAAACKIoiwAAAAAAAAAAAAAUAAAAAIoiiKIoiiKIoiiKIoiiUAAAAAAAAAAACiKIoiiKIoiiKIoiiKIoiwAAAAAAAAAAAAAASiKIoiiKIoAAAAAAAAAAAAAAAAAAAAAAAAAAAFJQAAAAAAAAAAAAAAASiLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAAKIoiiKIoiiKIoiiKIogAAAIsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAoAAAAAAAAAAAAAiwAAAiwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWUAAAoAAAAAAAAAAAAAAIAABLAAAAAAAAAAAAAAAAAAAAAAAoiiKIogAAAAAAAAAAAAAFlAAAKAAAAAAAAAAAAAACAAASwAAAAAAAAAAAAAAAAAAAAAAoAAAAIogAAAAAAAAAAAAKAABYKlAAAAAAAAAAAAEAAACAAAAAAAAAAAAAAAAAAAAAAAoAAAAAIsAAAAAAAAAAAAFgoAAAFgqCoKgqCoKgqCoKgqAAAABAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAEsAAAAAAAAAAAAAAKgoAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAASwAAAAAAAAAAAAAAAAWCoKgqCoKgqCoKgqCoKgqAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAASiAAAAAEAAAFgoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAACAAAAAQAAAAAKlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAABLAAAAACAAAAAAAWCoKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAASwAAAAAgAAAAAAAAAAAAAAAAAAAAAKgqCoKAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAASwAAAAASwAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAABLAAAAABLAAAAAAAAAAAAAAAAAAAAAAABZQAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAASwAAAAASwAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAABLAAAAAACAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAABLAAAAAACLAAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAEAAAAAABLAAAAAAAAAAAAAAAAAAAUigAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAEAAAAAAAAIAAAAAAAAAAAAAolAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACoKgqCoAAAAAAAAAAEsAAAAAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACLAAAAAAAAUlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABKIsAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoiiKIogAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAACKIoiiKIoiiKIoiiKIoiiKIoiiKIoiiKIoiiKIoiiLAAAAAUiiUAAAEoiwAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIogAAAAAAAAAAAAAOgJRFEURRFEURRFEURRFEURRFEURRFEURRFEURRFEURRFEURRFEURRFEAAAAAAAAAAAAAAABFgAAAAAAAAAAAAB0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABKIsAAAABSUAAAEogAAIAAAAAAAAAAAADsAAAAAAAAAAACURRFEURRFEURRFEURRFEURRFEURRFEURRFEWAAAAEURQAAAAAAAlEAAlgAAAAAAAAAAAB2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABKIsAAAAAAACiKIogAIsAEogAAAAAAAAAAANAAAAAAARRFEURRFEURRFEURRFEURRFEURRFEURRFEURRFEURRAAAARYAAAACgAAACUQCUQAEAAAAAAAAAAABoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABKIAACAAAAUAAAAAIACAAgAAAAAAAAAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARYAAJYAALKAAAAAAJYAQAEAAAAAAAAAAABoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABLAAACAAWUAAAAAASwAgAIAAAAAAAAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACWAAAEABUoAAAAAAlgBAAQAAAAAAAAAAAGgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEsAAAIABZQAAAAABLACAAgAAAAAAAAAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAACWAAAFAAAAAAgAQAEAAAAAAAAAAABoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAgAAAFgoAAABAACAAgAAAAAAAAAAANEFQVBUFQVBUFQVBUFQVBUFgAAAAAAAAAAAAAAAAAAAAAAIAAAAACwVKAAIAAgABFgAAAAAAAAAAB2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQsAAAAAAAAAAAABLAABKIAAAAAAAAAADsAAAAAAAAAAAAAAAAAABBUFQVBUFQVBUFQVBUFQVBUAAAAAAAAAAAAAAACAAABFEAAAAAAAAAB2gqCoKgqCoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAABKIoiiKIoiiKIoiigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAFAAAAACAAAAAAAAAAAAAAAA//8QAFBABAAAAAAAAAAAAAAAAAAAA0P/aAAgBAQABPwB0J//EABQRAQAAAAAAAAAAAAAAAAAAALD/2gAIAQIBAT8AeB//xAAUEQEAAAAAAAAAAAAAAAAAAACw/9oACAEDAQE/AHgf/9k=" alt="preview image" class="p-img" style="position: absolute; width: 99.9vw; height: 99.9vh; z-index: -1; pointer-events: none" fetchpriority="high"/><div id="root"></div><div class="app-loading-bg"></div><div class="app-loading"><div class="main-cont"><div class="brand"><div class="brand-img-wrapper"><img src="https://img.alltocon.com/img/static/mobile/brand/vi6prod/logo.png" alt="vi6prod" class="logo"/></div><h2 class="loading-msg"><span>JOIN GA6789</span></h2></div><div class="loading-cont"><img src="https://img.alltocon.com/img/static/wjevo/loading-ani.svg" alt="laoding..." class="loading-icon"/> Loading</div></div></div><div id="modal-root"></div><script>/* REPLACE START */
+      /* REPLACE END */</script><template id="lazy-load-script-section"></template><script>// setTimeout(function () {
+      //   if (!window.appIsMounted) {
+      //     document.getElementById('root').innerHTML = '<div class="app-failure"><h1>Connector break</h1><div class="cont">Page cannot be accessed. Please confirm the following conditions:<ul><li>Operating system too old </br><span>(iOS 10.0+/Android 5.0+ supported)</span></li><li>Browser version too old or SSL connection error</br><span>(Recommend Chrome 50+)</span></li><li>Good network environment</li><span class="version-hash">"b1e6b055936391548f2da82c6d3342cd7766cd70"</span></ul></div><a href="/" class="btn-refresh">Refresh</a></div>';
+      //   }
+      // }, 15000);</script><script>window.addEventListener('load', () => {
+        try {
+          const tpl = document.getElementById('lazy-load-script-section');
+          if (tpl && tpl.content && tpl.content.hasChildNodes()) {
+            const frag = tpl.content.cloneNode(true);
+            document.body.appendChild(frag);
+          }
+        } catch (e) {
+          console.log('script load Error : ', e);
+        }
+        try {
+          const existingManifest = document.querySelector('link[rel="manifest"]');
+          if (!existingManifest) {
+            const link = document.createElement('link');
+            link.rel = 'manifest';
+            link.href = '/manifest.json';
+            document.head.appendChild(link);
+          }
+        } catch (e) {
+          console.log('manifest load Error : ', e);
+        }
+      });</script><div class="version-hash" style="display:none;">"b1e6b055936391548f2da82c6d3342cd7766cd70"</div></body></html>

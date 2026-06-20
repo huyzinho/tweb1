@@ -1,0 +1,77 @@
+<!DOCTYPE html><html><head lang="en">
+<meta charset="UTF-8">
+<title>GA6789</title>
+<meta name="keywords" content="APP Download">
+<meta name="description" content="APP Download">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+<meta name="format-detection" content="address=no">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="GA6789">
+<script src="../public/jquery-3.4.1.min.js"></script>
+<script src="../public/clipboard.min.js"></script>
+<script src="../public/main_new.js"></script>
+<link rel="stylesheet" type="text/css" href="../public/main.css">
+
+</head>
+<body onload="onload()">
+    <div id="app_download_box">
+        <div id="app_icon">
+            <img src="app-icon.png" alt="GA6789" width="100%" height="100%">
+        </div>
+        <h1>GA6789</h1>
+
+        <!--  -->
+        <a onclick="openDetectAgentAndHref('https://appga6789.com/')">
+            <svg width="20" height="24">
+                <path d="M22,17.61c-.79,2.28-3.14,6.31-5.56,6.36-1.61,0-2.13-.95-4-.95s-2.41.92-3.93,1C6,24.1,2,18.17,2,13,2,8.26,5.31,5.9,8.2,5.86c1.55,0,3,1,4,1s2.72-1.29,4.59-1.11a5.65,5.65,0,0,1,4.39,2.38C17.4,10.62,18,15.73,22,17.61ZM16.78,0A5.31,5.31,0,0,0,12,5.53C14.58,5.73,17.09,2.81,16.78,0Z" transform="translate(-2)"></path>
+            </svg>
+            <span>
+              Tải cho phiên bản Iphone
+              <p>Hỗ Trợ IOS 12.0 trở lên - IOS 12.0+</p>
+            </span>
+        </a>
+        <a onclick="openDetectAgentWithFileNamePlatform('android','vi6_h.apk')">
+            <svg width="20" height="24">
+                <path d="M6,8v9.44A1.56,1.56,0,0,0,7.56,19H8v3.54A1.51,1.51,0,0,0,9.51,24,1.48,1.48,0,0,0,11,22.54V19h2v3.54A1.51,1.51,0,0,0,14.51,24,1.48,1.48,0,0,0,16,22.54V19h.44A1.56,1.56,0,0,0,18,17.44V8ZM22,9.47a1.5,1.5,0,0,0-3,0v6.11a1.5,1.5,0,0,0,3,0Zm-17,0a1.5,1.5,0,0,0-3,0v6.11A1.46,1.46,0,0,0,3.5,17,1.46,1.46,0,0,0,5,15.58ZM15,2.16,15.89.3a.2.2,0,0,0-.16-.3.21.21,0,0,0-.17.1L14.61,2A6.18,6.18,0,0,0,9.39,2L8.44.1A.21.21,0,0,0,8.27,0a.2.2,0,0,0-.16.3l.94,1.86A5.33,5.33,0,0,0,6,7H18A5.33,5.33,0,0,0,15,2.16ZM9.5,5A.5.5,0,0,1,9,4.5.51.51,0,0,1,9.5,4a.5.5,0,0,1,.5.5A.5.5,0,0,1,9.5,5Zm5,0a.5.5,0,0,1-.5-.5.5.5,0,0,1,1,0A.5.5,0,0,1,14.5,5Z" transform="translate(-2 0)"></path>
+            </svg>
+            <span>
+              Tải cho phiên bản Android
+              <p>Hỗ Trợ Android 6.0 trở lên - Android 6.0 +</p>
+            </span>
+        </a>
+
+        <a id="copy-link" data-clipboard-target="#page-url" class="copy-action" href="javascript:void(0)">
+            <svg width="24" height="24">
+                <path d="M12,0.5C5.7,0.5,0.5,5.7,0.5,12S5.7,23.5,12,23.5S23.5,18.3,23.5,12S18.3,0.5,12,0.5z M12,21.6c-2.6,0-5-1.1-6.7-2.7v-1.6c0-0.5,0.2-0.7,0.4-1.1c0.2-0.3,0.5-0.7,0.5-1.3c0-0.9-0.8-1-1.3-1.1c-0.3,0-0.6-0.1-0.8-0.2c-0.1-0.1-0.3-0.4-0.4-0.6c-0.3-0.5-0.6-1.2-1.3-1.6c0.3-5,4.5-9,9.5-9c0.3,0,0.5,0,0.8,0c-0.1,0-0.1,0.1-0.2,0.1c-0.1,0.1-0.1,0.2-0.1,0.4c0,0.1,0.1,0.3,0.2,0.3c0.2,0.2,0.2,0.2,0.2,0.2c0,0-0.1,0.2-0.6,0.4c-0.8,0.4-1.7,1.2-1.9,2.1c-0.1,0.4,0.1,0.8,0.3,1c0.1,0.1,0.2,0.1,0.3,0.1c0.7,0,1.2-0.2,1.7-0.5c0.5-0.2,1-0.5,1.7-0.5c1.9,0,3.4,0.4,3.4,1c0,0.2-0.1,0.3-0.1,0.3c-0.2,0.2-1,0.2-1.7,0.2c-0.2,0-0.4,0-0.6,0c-0.6,0-0.9-0.1-1.1-0.2C14,7.4,13.7,7.2,13,7.2c-0.8,0-2.3,0.1-3.2,1.1C9,9.1,9,10,9.1,10.6c0,0.1,0,0.3,0,0.4c0,0.9,1,1.4,1.9,1.4c1.5,0,2.7,0.3,2.9,0.5c0,0.5,0.2,0.9,0.3,1.2c0.1,0.2,0.2,0.4,0.2,0.7c0,0.2,0,0.3-0.1,0.4c-0.2,0.2-0.3,0.5-0.3,1c0,1,1,2.1,1.1,2.2c0.1,0.1,0.2,0.2,0.4,0.2c0,0,0.1,0,0.1,0c0.3-0.1,2.8-0.8,2.8-2.4c0-0.5,0.2-0.6,0.4-0.9c0.2-0.2,0.6-0.5,0.6-1.1c0-0.4,0.7-1.4,1.3-2.1c0.1-0.1,0.1-0.2,0.1-0.4c0-0.1-0.1-0.3-0.2-0.3c-0.4-0.3-1.4-1.2-1.7-2.1c0.2,0.1,0.4,0.3,0.6,0.5c0.2,0.2,0.4,0.2,0.6,0.2c0.4,0,0.8-0.3,1.3-0.7c0.2,0.8,0.4,1.7,0.4,2.5C21.6,17.3,17.3,21.6,12,21.6z"></path>
+            </svg>
+            <span>Open with browser
+                <p>Click to copy URL</p>
+            </span>
+        </a>
+        <div class="chrome-notice">
+            <svg width="24" height="24">
+                <path d="M2.897 4.181c2.43-2.828 5.763-4.181 9.072-4.181 4.288 0 8.535 2.273 10.717 6.554-2.722.001-6.984 0-9.293 0-1.674.001-2.755-.037-3.926.579-1.376.724-2.415 2.067-2.777 3.644l-3.793-6.596zm5.11 7.819c0 2.2 1.789 3.99 3.988 3.99s3.988-1.79 3.988-3.99-1.789-3.991-3.988-3.991-3.988 1.791-3.988 3.991zm5.536 5.223c-2.238.666-4.858-.073-6.293-2.549-1.095-1.891-3.989-6.933-5.305-9.225-1.33 2.04-1.945 4.294-1.945 6.507 0 5.448 3.726 10.65 9.673 11.818l3.87-6.551zm2.158-9.214c1.864 1.734 2.271 4.542 1.007 6.719-.951 1.641-3.988 6.766-5.46 9.248 7.189.443 12.752-5.36 12.752-11.972 0-1.313-.22-2.66-.69-3.995h-7.609z"></path>
+            </svg>
+            We recommend Chrome, or contact customer service if you have any problem.
+        </div>
+    </div>
+
+    <span id="page-url">https://app-download.alltocon.com/vi6prod/</span>
+    <!-- copied -->
+    <div id="copied-msg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="66" height="64" viewBox="0 0 66 64">
+            <g fill="none" fill-rule="evenodd">
+                <path stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" d="M11 29.406L27.11 46 56 17"></path>
+            </g>
+        </svg>
+        <h4>Copied Link</h4>
+    </div>
+
+<script defer="" src="/static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;aa13cd159bfe465ebc8fb54c39b2a049&quot;,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+<script src="/js/auth.js"></script>
+</body></html>
