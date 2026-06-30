@@ -74,30 +74,45 @@ router.get("/", requireAuth, (req, res) => {
   });
 });
 
-// ============================================================
 // API: Update domains
 // ============================================================
 router.post("/api/domains", requireAuth, (req, res) => {
   const { redirectDomain, loginDomain, regDomain } = req.body;
   const domainConfig = req.app.locals.domainConfig;
+  const updates = {};
+
+  const cleanDomain = (val) => {
+    if (!val || val.trim() === "") return "";
+    const trimmed = val.trim();
+    if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+      return trimmed;
+    }
+    return `https://${trimmed}`;
+  };
 
   if (redirectDomain !== undefined) {
-    domainConfig.redirectDomain = redirectDomain.startsWith("https://")
-      ? redirectDomain
-      : `https://${redirectDomain}`;
+    const formatted = cleanDomain(redirectDomain);
+    domainConfig.redirectDomain = formatted;
+    updates.REDIRECT_DOMAIN = formatted;
   }
   if (loginDomain !== undefined) {
-    domainConfig.loginDomain = loginDomain.startsWith("https://")
-      ? loginDomain
-      : `https://${loginDomain}`;
+    const formatted = cleanDomain(loginDomain);
+    domainConfig.loginDomain = formatted;
+    updates.LOGIN_DOMAIN = formatted;
   }
   if (regDomain !== undefined) {
-    domainConfig.regDomain = regDomain.startsWith("https://")
-      ? regDomain
-      : `https://${regDomain}`;
+    const formatted = cleanDomain(regDomain);
+    domainConfig.regDomain = formatted;
+    updates.REG_DOMAIN = formatted;
   }
 
-  return res.json({ success: true, domainConfig });
+  try {
+    updateEnvFile(updates);
+    return res.json({ success: true, domainConfig });
+  } catch (error) {
+    console.error("Error writing domain config:", error);
+    return res.status(500).json({ success: false, error: "Failed to save domains." });
+  }
 });
 
 // ============================================================

@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="vi" data-react-helmet="lang" style="--swiper-theme-color: #fff; --platform-color-highlight: #f9752d;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <link rel="shortcut icon" href="/favicons/vi6prod.ico">
+  <meta name="referrer" content="origin">
+  <meta name="google" content="notranslate">
+  <title>GA6789 - Đăng nhập</title>
+  
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/8338.dbcf599a.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/6569.b3db9391.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/300.1da82308.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/d-AppContainer.cf58eac6.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/7564.e1413525.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/206.d4cde7e6.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/2598.0507d0b4.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/6110.0998f73b.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/d-SimpleLoginForm.c30fc125.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/d-Signup.4bbd7a34.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/9933.c509dfa4.css">
+  <link rel="stylesheet" type="text/css" href="/static/stylesheets/8774.c576e69f.css">
+  
+  <style>
+    .app.login .app-body {
+      background: url(/img.alltocon.com/img/static/vi6prod/desktop/login-bg-left.png) 0 100%/40% auto no-repeat,
+                  url(/img.alltocon.com/img/static/vi6prod/desktop/login-bg-right.png) 100% 100%/30% auto no-repeat,
+                  url(/img.alltocon.com/img/static/vi6prod/desktop/login-bg.png) 50%/cover no-repeat !important;
+      padding: 60px 0;
+    }
+    
+    .app.login .app-body:before {
+      background: url(/img.alltocon.com/img/static/vi6prod/desktop/login-title.png) 50%/contain no-repeat;
+      content: "";
+      display: block;
+      margin: 0 auto 20px;
+      padding-bottom: 17.8892%;
+      width: 50%;
+      max-width: 600px;
+    }
+
+    .app.login .simple-logo-wrap {
+      display: none !important;
+    }
+
+    .desktop-login-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 460px;
+      border-radius: 12px;
+      margin: 0 auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .desktop-login-card-header {
+      background: #e9eaec;
+      padding: 15px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: #333333;
+      position: relative;
+    }
+
+    .desktop-login-card-header .close-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 22px;
+      font-weight: bold;
+      color: #888;
+      cursor: pointer;
+      background: none;
+      border: none;
+      outline: none;
+    }
+
+    .desktop-login-card-header .close-btn:hover {
+      color: #333;
+    }
+
+    .desktop-login-card-body {
+      padding: 30px 40px;
+    }
+
+    .desktop-login-field {
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .desktop-login-field input {
+      width: 100%;
+      height: 48px;
+      box-sizing: border-box;
+      padding: 10px 18px;
+      background: #f4f5f7;
+      border: 1px solid #e1e3e8;
+      border-radius: 24px;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .desktop-login-field input:focus {
+      border-color: #f9752d;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(249,117,45,0.1);
+    }
+
+    .desktop-login-field .password-toggle-icon {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #888;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .desktop-login-field .password-toggle-icon i {
+      font-family: iconmps !important;
+      font-style: normal;
+    }
+
+    .desktop-login-btn {
+      width: 100%;
+      height: 48px;
+      background: linear-gradient(135deg, #f9752d, #ff5722);
+      border: none;
+      border-radius: 24px;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 10px;
+    }
+
+    .desktop-login-btn:hover {
+      box-shadow: 0 4px 12px rgba(249, 117, 45, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .desktop-login-btn:active {
+      transform: translateY(0);
+    }
+
+    .desktop-signup-hint {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .desktop-signup-hint a {
+      color: #f9752d;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .desktop-signup-hint a:hover {
+      text-decoration: underline;
+    }
+
+    .desktop-forget-options {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      padding: 0 5px;
+      font-size: 13px;
+    }
+
+    .desktop-forget-options a {
+      color: #f9752d;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    .desktop-forget-options a:hover {
+      color: #ff5722;
+    }
+    
+    .desktop-login-field.has-error input {
+      border-color: #f9752d !important;
+    }
+    
+    .desktop-login-field .error-text {
+      color: #e74c3c;
+      font-size: 12px;
+      display: block;
+      margin-top: 4px;
+      padding-left: 15px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" style="display: block;">
+    <div class="app login">
+      <div class="quick-nav">
+        <div class="main-header main-wrap">
+          <div class="simple-logo-wrap">
+            <div class="input-wrap account"><input type="text" placeholder="Tên Đăng Nhập" class="username-btn" value=""></div>
+            <div class="input-wrap password"><input type="password" placeholder="Mật Khẩu" class="password-btn" value=""><i class="visible-toggle mps-unreadable"></i><a class="forgot-password" title="Quên mật khẩu" href="/forgetpassword">Quên mật khẩu</a></div>
+            <div class="btn-wrap"><div class="header-btn highlight-btn login"><div>Đăng nhập</div></div></div>
+            <div class="header-btn signup"><div>Đăng ký</div></div>
+          </div>
+        </div>
+      </div>
+      
+      <header>
+        <div class="main-wrap main-header navigation">
+          <div class="logo" style="background-image: url(&quot;/img.alltocon.com/img/static/desktop/brand/vi6prod/logo.png&quot;);" onclick="window.navigateTo('/')"></div>
+          <ul class="nav">
+            <li class="nav-animal" data-content="ANIMAL" data-title="Đá Gà / Đua Ngựa"><div class="nav-item animal"><a href="/gamelobby/animal"><h3>Đá Gà / Đua Ngựa</h3></a></div></li>
+            <li class="nav-sports" data-content="SPORTS" data-title="Thể thao"><div class="nav-item sports"><a href="/gamelobby/sports"><h3>Thể thao</h3></a></div></li>
+            <li class="nav-live" data-content="LIVE" data-title="Sòng bài"><div class="nav-item live"><a href="/gamelobby/live"><h3>Sòng bài</h3></a></div></li>
+            <li class="nav-egame" data-content="EGAME" data-title="Trò chơi"><div class="nav-item egame"><a href="/gamelobby/egame"><h3>Trò chơi</h3></a></div></li>
+            <li class="nav-mpg" data-content="MPG" data-title="Bắn cá"><div class="nav-item mpg"><a href="/gamelobby/mpg"><h3>Bắn cá</h3></a></div></li>
+            <li class="nav-esports" data-content="ESPORTS" data-title="E-Sports"><div class="nav-item esports"><a href="/gamelobby/esports"><h3>E-Sports</h3></a></div></li>
+            <li class="nav-chess" data-content="CHESS" data-title="Chess"><div class="nav-item chess"><a href="/gamelobby/chess"><h3>Chess</h3></a></div></li>
+            <li class="nav-lottery" data-content="LOTTERY" data-title="Xổ số"><div class="nav-item lottery"><a href="/gamelobby/lottery"><h3>Xổ số</h3></a></div></li>
+            <li class="nav-promotions" data-content="PROMOTIONS" data-title="Khuyến mãi"><div class="nav-item promotions"><a href="/promotions"><h3>Khuyến mãi</h3></a></div></li>
+            <li class="nav-page_qr" data-content="PAGE_QR" data-title="Tải ứng dụng"><div class="nav-item mobile"><a href="/page/QR"><h3>Tải ứng dụng</h3></a></div></li>
+            <li class="" data-content="MY_VIP" data-title="VIP"><div class="nav-item"><a href="/myvip"><h3>VIP</h3></a></div></li>
+          </ul>
+        </div>
+      </header>
+
+      <div class="marquee-container undefined">
+        <div class="marquee-block" style="display: block;">
+          <div class="marquee-news">
+            <div class="marquee-wrap news">
+              <div class="visible-area">
+                <div class="marquee-content scrollLeft" style="animation-delay: 2s; animation-duration: 16.89s;">
+                  <span class="marquee-item" data-nosnippet="true">Chào mừng GA6789</span>
+                </div>
+              </div>
+            </div>
+            <span class="news-title"><i class="mps-news"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-body">
+        <div class="desktop-login-card">
+          <div class="desktop-login-card-header">
+            Đăng nhập
+            <button class="close-btn" onclick="window.navigateTo('/')">×</button>
+          </div>
+          
+          <div class="desktop-login-card-body">
+            <form id="desktop-login-form" onsubmit="return false;">
+              <div class="desktop-login-field" id="desk-group-username">
+                <input type="text" id="desk-login-username" placeholder="Tên Đăng Nhập" autocomplete="username">
+              </div>
+              
+              <div class="desktop-login-field" id="desk-group-password">
+                <input type="password" id="desk-login-password" placeholder="Mật Khẩu" autocomplete="current-password">
+                <span class="password-toggle-icon" id="desk-toggle-pwd-btn">
+                  <i class="mps-unreadable"></i>
+                </span>
+              </div>
+              
+              <button class="desktop-login-btn" id="desk-login-submit-btn" type="submit">Đăng Nhập</button>
+            </form>
+            
+            <div class="desktop-signup-hint">
+              Bạn chưa có tài khoản? <a href="/signup">Đăng ký ngay</a>
+            </div>
+            
+            <div class="desktop-forget-options">
+              <a href="#" class="desktop-recovery-link">Quên tên đăng nhập</a>
+              <a href="#" class="desktop-recovery-link">Quên mật khẩu</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="main-wrap">
+          <div class="footer-links">
+            <a href="/">Trang chủ</a>
+            <a href="/promotions">Khuyến mãi</a>
+            <a href="/signup">Đăng ký</a>
+            <a href="/login">Đăng nhập</a>
+          </div>
+          <div class="copy">Copyright © GA6789 All Rights Reserved.</div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="/js/auth.js?v=<%= Date.now() %>"></script>
+</body>
+</html>
