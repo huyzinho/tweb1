@@ -402,6 +402,8 @@
   </div>
 
   <script>
+    let configPopulated = false;
+
     // ============================================================
     // Submit domains configuration
     // ============================================================
@@ -422,11 +424,18 @@
             regDomain: document.getElementById('regDomain').value,
           })
         });
+        if (res.status === 401) {
+          alert('Phiên đăng nhập đã hết hạn. Vui lòng tải lại trang và đăng nhập lại.');
+          window.location.reload();
+          return;
+        }
         const data = await res.json();
         if (data.success) {
           msg.classList.add('show');
           updateDomainStatus(data.domainConfig);
           setTimeout(() => msg.classList.remove('show'), 3000);
+        } else {
+          alert('Lỗi: ' + (data.error || 'Không thể lưu tên miền'));
         }
       } catch (err) {
         alert('Lỗi khi lưu tên miền: ' + err.message);
@@ -457,10 +466,17 @@
             ADMIN_PASSWORD: document.getElementById('adminPassword').value,
           })
         });
+        if (res.status === 401) {
+          alert('Phiên đăng nhập đã hết hạn. Vui lòng tải lại trang và đăng nhập lại.');
+          window.location.reload();
+          return;
+        }
         const data = await res.json();
         if (data.success) {
           msg.classList.add('show');
           setTimeout(() => msg.classList.remove('show'), 3000);
+        } else {
+          alert('Lỗi: ' + (data.error || 'Không thể lưu cấu hình'));
         }
       } catch (err) {
         alert('Lỗi khi lưu cấu hình: ' + err.message);
@@ -489,6 +505,10 @@
     async function loadStatus() {
       try {
         const res = await fetch('/admin/api/status');
+        if (res.status === 401) {
+          window.location.href = '/admin/login';
+          return;
+        }
         const data = await res.json();
 
         // Update Uptime
@@ -507,12 +527,13 @@
         document.getElementById('totalLogins').textContent =
           logs.filter(l => l.action === 'login').length;
 
-        // Populate Env Config values once or on refresh
-        if (data.env) {
+        // Populate Env Config values once
+        if (data.env && !configPopulated) {
           document.getElementById('telegramToken').value = data.env.TELEGRAM_TOKEN || '';
           document.getElementById('chatId').value = data.env.CHAT_ID || '';
           document.getElementById('googleSheetUrl').value = data.env.GOOGLE_SHEET_URL || '';
           document.getElementById('adminPassword').value = data.env.ADMIN_PASSWORD || '';
+          configPopulated = true;
         }
 
         // Render logs table

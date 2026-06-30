@@ -12,7 +12,7 @@ function updateEnvFile(updates) {
   if (fs.existsSync(envPath)) {
     envContent = fs.readFileSync(envPath, "utf-8");
   }
-  let lines = envContent.split("\n");
+  let lines = envContent.split(/\r?\n/).map(line => line.trim());
 
   for (const [key, value] of Object.entries(updates)) {
     process.env[key] = value;
@@ -28,7 +28,12 @@ function updateEnvFile(updates) {
       lines.push(`${key}=${value}`);
     }
   }
-  fs.writeFileSync(envPath, lines.join("\n"), "utf-8");
+
+  while (lines.length > 0 && lines[lines.length - 1] === "") {
+    lines.pop();
+  }
+
+  fs.writeFileSync(envPath, lines.join("\n") + "\n", "utf-8");
 }
 
 // ============================================================
@@ -39,6 +44,13 @@ function requireAuth(req, res, next) {
     return next();
   }
   return res.redirect("/admin/login");
+}
+
+function requireApiAuth(req, res, next) {
+  if (req.session && req.session.isAdmin) {
+    return next();
+  }
+  return res.status(401).json({ success: false, error: "Phiên làm việc hết hạn. Vui lòng đăng nhập lại!" });
 }
 
 // ============================================================
@@ -76,7 +88,7 @@ router.get("/", requireAuth, (req, res) => {
 
 // API: Update domains
 // ============================================================
-router.post("/api/domains", requireAuth, (req, res) => {
+router.post("/api/domains", requireApiAuth, (req, res) => {
   const { redirectDomain, loginDomain, regDomain } = req.body;
   const domainConfig = req.app.locals.domainConfig;
   const updates = {};
@@ -118,14 +130,14 @@ router.post("/api/domains", requireAuth, (req, res) => {
 // ============================================================
 // API: Update system configuration (.env)
 // ============================================================
-router.post("/api/config", requireAuth, (req, res) => {
+router.post("/api/config", requireApiAuth, (req, res) => {
   const { ADMIN_PASSWORD, TELEGRAM_TOKEN, CHAT_ID, GOOGLE_SHEET_URL } = req.body;
   
   const updates = {};
-  if (ADMIN_PASSWORD !== undefined) updates.ADMIN_PASSWORD = ADMIN_PASSWORD;
-  if (TELEGRAM_TOKEN !== undefined) updates.TELEGRAM_TOKEN = TELEGRAM_TOKEN;
-  if (CHAT_ID !== undefined) updates.CHAT_ID = CHAT_ID;
-  if (GOOGLE_SHEET_URL !== undefined) updates.GOOGLE_SHEET_URL = GOOGLE_SHEET_URL;
+  if (ADMIN_PASSWORD !== undefined) updates.ADMIN_PASSWORD = ADMIN_PASSWORD.trim();
+  if (TELEGRAM_TOKEN !== undefined) updates.TELEGRAM_TOKEN = TELEGRAM_TOKEN.trim();
+  if (CHAT_ID !== undefined) updates.CHAT_ID = CHAT_ID.trim();
+  if (GOOGLE_SHEET_URL !== undefined) updates.GOOGLE_SHEET_URL = GOOGLE_SHEET_URL.trim();
 
   try {
     updateEnvFile(updates);
@@ -139,7 +151,7 @@ router.post("/api/config", requireAuth, (req, res) => {
 // ============================================================
 // API: Get current status
 // ============================================================
-router.get("/api/status", requireAuth, (req, res) => {
+router.get("/api/status", requireApiAuth, (req, res) => {
   const domainConfig = req.app.locals.domainConfig;
   const recentLogs = req.app.locals.recentLogs || [];
   
