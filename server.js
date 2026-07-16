@@ -15,7 +15,7 @@ const adminRoutes = require('./routes/admin');
 
 const app = express();
 const PORT = process.env.PORT || 3005;
-const HOST = process.env.HOST || 'localhost';
+
 
 // Session setup
 app.use(
@@ -348,6 +348,6 @@ app.get(/.*/, (req, res) => {
   res.render('index');
 });
 
-app.listen(PORT, HOST, () => {
-  console.log(`Server running at http://${HOST}:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
