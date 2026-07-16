@@ -1166,8 +1166,26 @@ window.redirectToContactLink = async function() {
       }
       return;
     }
+    // 10. Floating Quick Menu (.event-qmenu) handle toggle click handler
+    const qmenuHandle = e.target.closest('.event-qmenu .handle, .event-qmenu svg, .event-qmenu path');
+    if (qmenuHandle) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const qmenu = qmenuHandle.closest('.event-qmenu');
+      if (qmenu) {
+        if (qmenu.classList.contains('menu-close')) {
+          qmenu.classList.remove('menu-close');
+          qmenu.classList.add('menu-open');
+        } else {
+          qmenu.classList.remove('menu-open');
+          qmenu.classList.add('menu-close');
+        }
+      }
+      return;
+    }
   }, true); // Use capture phase to intercept routing clicks!
 })();
+
 
 
 
