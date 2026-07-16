@@ -1173,6 +1173,10 @@ window.redirectToContactLink = async function() {
       e.stopImmediatePropagation();
       const qmenu = qmenuHandle.closest('.event-qmenu');
       if (qmenu) {
+        const cont = qmenu.querySelector('.cont');
+        if (cont && !cont.children.length) {
+          cont.innerHTML = '<div class="event-item" data-code="MY_VIP"><a href="/myvip"><img src="/img.alltocon.com/img/vi6prod/floatingads/54c0df49-703f-4ac6-9190-5ff33587f193.gif" alt="VIP"></a></div><div class="event-item" data-code="PROMOTIONS"><a href="/promotions"><img src="/img.alltocon.com/img/vi6prod/floatingads/4579be30-1b55-4131-b6af-fd870dc3b434.gif" alt="Vòng Quay"></a></div>';
+        }
         if (qmenu.classList.contains('menu-close')) {
           qmenu.classList.remove('menu-close');
           qmenu.classList.add('menu-open');
@@ -1183,6 +1187,7 @@ window.redirectToContactLink = async function() {
       }
       return;
     }
+
   }, true); // Use capture phase to intercept routing clicks!
 })();
 
