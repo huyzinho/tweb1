@@ -71,13 +71,15 @@ window.redirectToContactLink = async function() {
       display: block !important;
     }
 
-    /* Swiper Pagination Bullets Matching Real Site */
+    /* Swiper Pagination Bullets Centered Matching Real Site */
     .home-banner-top .swiper-pagination {
       position: absolute !important;
-      bottom: 10px !important;
-      left: 0 !important;
-      right: 0 !important;
-      width: 100% !important;
+      bottom: 8px !important;
+      left: 50% !important;
+      right: auto !important;
+      transform: translateX(-50%) !important;
+      width: auto !important;
+      margin: 0 auto !important;
       display: flex !important;
       justify-content: center !important;
       align-items: center !important;
@@ -104,6 +106,47 @@ window.redirectToContactLink = async function() {
       transform: scale(1.1) !important;
       box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5) !important;
     }
+
+    /* Swiper Navigation Buttons Matching Real Site */
+    .home-banner-top .swiper-button-prev,
+    .home-banner-top .swiper-button-next {
+      position: absolute !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      margin-top: 0 !important;
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 50% !important;
+      background: rgba(0, 0, 0, 0.35) !important;
+      color: #ffffff !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 15 !important;
+      cursor: pointer !important;
+      transition: background 0.2s ease !important;
+    }
+    .home-banner-top .swiper-button-prev {
+      left: 10px !important;
+      right: auto !important;
+    }
+    .home-banner-top .swiper-button-next {
+      right: 10px !important;
+      left: auto !important;
+    }
+    .home-banner-top .swiper-button-prev:after {
+      content: '❮' !important;
+      font-size: 14px !important;
+      font-weight: bold !important;
+      color: #ffffff !important;
+    }
+    .home-banner-top .swiper-button-next:after {
+      content: '❯' !important;
+      font-size: 14px !important;
+      font-weight: bold !important;
+      color: #ffffff !important;
+    }
+
 
 
 
