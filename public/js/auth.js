@@ -1380,9 +1380,36 @@ function initMobileBannerSwiper() {
       startAutoplay();
     }, { passive: true });
 
+    // Prev/Next Navigation Button Click Handlers
+    const prevBtn = container.querySelector('.swiper-button-prev');
+    const nextBtn = container.querySelector('.swiper-button-next');
+    if (prevBtn) {
+      prevBtn.style.cursor = 'pointer';
+      prevBtn.style.zIndex = '20';
+      prevBtn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        stopAutoplay();
+        slidePrev();
+        startAutoplay();
+      });
+    }
+    if (nextBtn) {
+      nextBtn.style.cursor = 'pointer';
+      nextBtn.style.zIndex = '20';
+      nextBtn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        stopAutoplay();
+        slideNext();
+        startAutoplay();
+      });
+    }
+
     startAutoplay();
   });
 }
+
 
 
 if (document.readyState === 'loading') {
