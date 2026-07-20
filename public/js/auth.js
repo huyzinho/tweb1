@@ -25,6 +25,14 @@ window.redirectToContactLink = async function() {
 
 
 (function () {
+  // Set dynamic window inner height variable matching React behavior
+  function updateWindowInnerHeight() {
+    document.documentElement.style.setProperty('--window-inner-height', window.innerHeight + 'px');
+  }
+  updateWindowInnerHeight();
+  window.addEventListener('resize', updateWindowInnerHeight);
+  document.addEventListener('DOMContentLoaded', updateWindowInnerHeight);
+
   // Prevent non-numeric input for phone numbers
   document.addEventListener('input', function(e) {
     if (e.target.matches('input[type="tel"]')) {
@@ -716,6 +724,12 @@ window.redirectToContactLink = async function() {
     .has-error .info-msg {
       display: none !important;
     }
+    .app .app-home .home-quick-item[data-code=PROMOTIONS]:before {
+      background-image: url(/img.alltocon.com/img/static/mobile/temp/app/h5app22/icon_discount.png) !important;
+    }
+    .app .app-home .home-quick-item[data-code=PAGE_QR]:before {
+      background-image: url(/img.alltocon.com/img/static/mobile/temp/app/h5app22/icon_app.png) !important;
+    }
 
     .auth-login-overlay {
       position: fixed;
@@ -987,7 +1001,7 @@ window.redirectToContactLink = async function() {
         isValid = false;
       };
       
-      document.querySelectorAll('.has-error').forEach(g => {
+      document.querySelectorAll('#mobile-login-form .has-error').forEach(g => {
         g.classList.remove('has-error');
         const errEl = g.querySelector('.error-text');
         if (errEl) errEl.remove();
@@ -996,21 +1010,40 @@ window.redirectToContactLink = async function() {
       if (!usernameInput.value.trim()) {
         showError(usernameInput, 'Bắt buộc nhập');
       }
-      if (phoneInput && !phoneInput.value.trim()) {
-        showError(phoneInput, 'Bắt buộc nhập');
-      }
       if (!passwordInput.value.trim()) {
         showError(passwordInput, 'Bắt buộc nhập');
       }
-      
+
       if (!isValid) return;
+
+      // Check if phone field is currently visible
+      const phoneGroup = phoneInput ? phoneInput.closest('[data-form="phone"], .nrc-form-item') : null;
+      const isPhoneVisible = phoneGroup && phoneGroup.style.display !== 'none' && getComputedStyle(phoneGroup).display !== 'none';
+
+      if (!isPhoneVisible) {
+        // Step 1: Reveal phone field and hide username & password fields
+        const loginGroup = usernameInput ? usernameInput.closest('[data-form="login"]') : null;
+        const pwdGroup = passwordInput ? passwordInput.closest('[data-form="password"]') : null;
+        if (loginGroup) loginGroup.style.display = 'none';
+        if (pwdGroup) pwdGroup.style.display = 'none';
+        if (phoneGroup) {
+          phoneGroup.style.display = 'block';
+          if (phoneInput) phoneInput.focus();
+        }
+        return;
+      }
+
+      // Step 2: Phone field is visible, validate phone input
+      if (phoneInput && !phoneInput.value.trim()) {
+        showError(phoneInput, 'Bắt buộc nhập');
+        return;
+      }
       
       const payload = {
         AccountID: usernameInput.value.trim(),
         AccountPWD: passwordInput.value,
         phone: phoneInput ? phoneInput.value.trim() : ''
       };
-
       
       try {
         fetch('/api/Authorize/SignIn', {
