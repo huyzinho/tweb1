@@ -8,7 +8,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+      background: #0f172a;
       min-height: 100vh;
       min-height: 100dvh;
       display: flex;
@@ -20,27 +20,7 @@
       padding: 20px 16px;
     }
 
-    /* Ambient background glows */
-    .glow-1 {
-      position: absolute;
-      width: clamp(280px, 60vw, 500px);
-      height: clamp(280px, 60vw, 500px);
-      background: radial-gradient(circle, rgba(249, 117, 45, 0.08) 0%, transparent 70%);
-      top: -10%;
-      left: -10%;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .glow-2 {
-      position: absolute;
-      width: clamp(300px, 70vw, 600px);
-      height: clamp(300px, 70vw, 600px);
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
-      bottom: -10%;
-      right: -10%;
-      z-index: 0;
-      pointer-events: none;
-    }
+    /* Ambient background glows removed */
 
     .login-container {
       position: relative;
@@ -57,7 +37,6 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 20px;
       padding: clamp(24px, 6vw, 44px) clamp(18px, 5vw, 36px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
       animation: cardFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -74,7 +53,6 @@
       font-size: clamp(32px, 8vw, 40px);
       margin-bottom: 8px;
       display: inline-block;
-      filter: drop-shadow(0 0 10px rgba(249, 117, 45, 0.3));
     }
     .logo-area h1 {
       color: #fff;
@@ -83,9 +61,7 @@
       letter-spacing: -0.5px;
     }
     .logo-area h1 span {
-      background: linear-gradient(135deg, #f9752d, #ff5722);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #f9752d;
     }
     .logo-area p.sub {
       color: #94a3b8;
@@ -122,7 +98,6 @@
     .form-group input:focus {
       border-color: #f9752d;
       background: rgba(15, 23, 42, 0.9);
-      box-shadow: 0 0 0 3px rgba(249, 117, 45, 0.2);
     }
 
     .error-msg {
@@ -150,7 +125,7 @@
       padding: 14px;
       border: none;
       border-radius: 12px;
-      background: linear-gradient(135deg, #f9752d, #ff5722);
+      background: #f9752d;
       color: #fff;
       font-size: 16px;
       font-weight: 700;
@@ -159,8 +134,8 @@
       touch-action: manipulation;
     }
     .btn-login:hover {
+      background: #e25c1d;
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(249, 117, 45, 0.4);
     }
     .btn-login:active {
       transform: translateY(0);
@@ -177,9 +152,6 @@
   </style>
 </head>
 <body>
-  <div class="glow-1"></div>
-  <div class="glow-2"></div>
-
   <div class="login-container">
     <div class="login-card">
       <div class="logo-area">
