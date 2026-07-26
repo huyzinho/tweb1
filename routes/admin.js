@@ -89,7 +89,7 @@ router.get("/", requireAuth, (req, res) => {
 // API: Update domains
 // ============================================================
 router.post("/api/domains", requireApiAuth, (req, res) => {
-  const { redirectDomain, loginDomain, regDomain } = req.body;
+  const { redirectDomain, loginDomain, regDomain, cskhLink } = req.body;
   const domainConfig = req.app.locals.domainConfig;
   const updates = {};
 
@@ -116,6 +116,11 @@ router.post("/api/domains", requireApiAuth, (req, res) => {
     const formatted = cleanDomain(regDomain);
     domainConfig.regDomain = formatted;
     updates.REG_DOMAIN = formatted;
+  }
+  if (cskhLink !== undefined) {
+    const formatted = cleanDomain(cskhLink);
+    domainConfig.cskhLink = formatted;
+    updates.CSKH_LINK = formatted;
   }
 
   try {

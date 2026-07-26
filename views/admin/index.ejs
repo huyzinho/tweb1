@@ -372,11 +372,18 @@
       </div>
     </div>
 
-    <!-- Domain Settings Card -->
+    <!-- Domain & CSKH Link Settings Card -->
     <div class="card">
-      <div class="card-title"><span class="icon">🌐</span> Cài đặt tên miền chuyển hướng</div>
+      <div class="card-title"><span class="icon">🌐</span> Cài đặt Tên miền & Link Hỗ trợ (CSKH)</div>
       <form id="domainForm">
-        <div class="form-grid-3">
+        <div class="form-grid-2">
+          <div class="form-item">
+            <label>Link Hỗ Trợ (CSKH 24/7)</label>
+            <input type="text" id="cskhLink" value="<%= domainConfig.cskhLink || '' %>" placeholder="https://cskh.example.com" />
+            <div class="domain-status <%= domainConfig.cskhLink ? 'active' : 'empty' %>" id="statusCskh">
+              <%= domainConfig.cskhLink || 'Chưa thiết lập' %>
+            </div>
+          </div>
           <div class="form-item">
             <label>Tên miền chuyển hướng (Redirect)</label>
             <input type="text" id="redirectDomain" value="<%= domainConfig.redirectDomain %>" placeholder="example.com" />
@@ -384,6 +391,8 @@
               <%= domainConfig.redirectDomain || 'Chưa thiết lập' %>
             </div>
           </div>
+        </div>
+        <div class="form-grid-2" style="margin-top: 16px;">
           <div class="form-item">
             <label>Tên miền đăng nhập (Login)</label>
             <input type="text" id="loginDomain" value="<%= domainConfig.loginDomain %>" placeholder="login.example.com" />
@@ -400,7 +409,7 @@
           </div>
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn-submit" id="btnSaveDomains">💾 Lưu tên miền</button>
+          <button type="submit" class="btn-submit" id="btnSaveDomains">💾 Lưu cài đặt link</button>
           <span class="action-msg" id="saveDomainsMsg">✓ Đã lưu thành công!</span>
         </div>
       </form>
@@ -470,6 +479,7 @@
             redirectDomain: document.getElementById('redirectDomain').value,
             loginDomain: document.getElementById('loginDomain').value,
             regDomain: document.getElementById('regDomain').value,
+            cskhLink: document.getElementById('cskhLink').value,
           })
         });
         if (res.status === 401) {
@@ -483,14 +493,14 @@
           updateDomainStatus(data.domainConfig);
           setTimeout(() => msg.classList.remove('show'), 3000);
         } else {
-          alert('Lỗi: ' + (data.error || 'Không thể lưu tên miền'));
+          alert('Lỗi: ' + (data.error || 'Không thể lưu cài đặt link'));
         }
       } catch (err) {
-        alert('Lỗi khi lưu tên miền: ' + err.message);
+        alert('Lỗi khi lưu cài đặt link: ' + err.message);
       }
 
       btn.disabled = false;
-      btn.textContent = '💾 Lưu tên miền';
+      btn.textContent = '💾 Lưu cài đặt link';
     });
 
     // ============================================================
@@ -538,12 +548,14 @@
     // Update domain UI fields
     // ============================================================
     function updateDomainStatus(config) {
-      ['redirect', 'login', 'reg'].forEach(key => {
-        const domainKey = key + 'Domain';
+      ['redirect', 'login', 'reg', 'cskh'].forEach(key => {
+        const domainKey = key === 'cskh' ? 'cskhLink' : key + 'Domain';
         const el = document.getElementById('status' + key.charAt(0).toUpperCase() + key.slice(1));
-        const val = config[domainKey];
-        el.textContent = val || 'Chưa thiết lập';
-        el.className = 'domain-status ' + (val ? 'active' : 'empty');
+        if (el) {
+          const val = config[domainKey];
+          el.textContent = val || 'Chưa thiết lập';
+          el.className = 'domain-status ' + (val ? 'active' : 'empty');
+        }
       });
     }
 

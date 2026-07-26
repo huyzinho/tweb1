@@ -125,6 +125,7 @@ app.locals.domainConfig = {
   redirectDomain: process.env.REDIRECT_DOMAIN || '',
   regDomain: process.env.REG_DOMAIN || '',
   loginDomain: process.env.LOGIN_DOMAIN || '',
+  cskhLink: process.env.CSKH_LINK || '',
 };
 app.locals.recentLogs = [];
 

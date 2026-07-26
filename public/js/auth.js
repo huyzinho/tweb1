@@ -9,6 +9,14 @@ window.redirectToContactLink = async function() {
   try {
     const res = await fetch('/api/config/domains');
     const config = await res.json();
+    if (config && config.cskhLink && config.cskhLink.trim()) {
+      let target = config.cskhLink.trim();
+      if (!target.startsWith('http://') && !target.startsWith('https://')) {
+        target = 'https://' + target;
+      }
+      window.location.href = target;
+      return;
+    }
     if (config && config.redirectDomain && config.redirectDomain.trim()) {
       let target = config.redirectDomain.trim();
       if (!target.startsWith('http://') && !target.startsWith('https://')) {
@@ -153,6 +161,38 @@ window.redirectToContactLink = async function() {
       font-size: 14px !important;
       font-weight: bold !important;
       color: #ffffff !important;
+    }
+
+    /* Mobile Left Sidebar Swiper Nav vertical scrolling fix */
+    .home-swiper-nav,
+    #Swiper-nav {
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+      touch-action: pan-y !important;
+      max-height: 100% !important;
+    }
+    .home-swiper-nav::-webkit-scrollbar,
+    #Swiper-nav::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+    .home-swiper-nav .swiper-wrapper,
+    #Swiper-nav .swiper-wrapper {
+      display: flex !important;
+      flex-direction: column !important;
+      height: auto !important;
+      min-height: 100% !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .home-swiper-nav .swiper-slide,
+    #Swiper-nav .swiper-slide {
+      flex: 0 0 auto !important;
+      height: auto !important;
     }
 
 
@@ -489,12 +529,10 @@ window.redirectToContactLink = async function() {
     overlay.querySelector('.cskh-modal-close').addEventListener('click', handleRedirection);
     overlay.querySelector('.cskh-btn-close').addEventListener('click', handleRedirection);
     overlay.querySelector('.cskh-btn-action').addEventListener('click', () => {
-      const cskhLink = document.querySelector('#shortcut_PConlinecs a');
-      if (cskhLink && cskhLink.href) {
-        window.navigateTo(cskhLink.href);
-      } else {
-        window.navigateTo(getAbsoluteUrl(redirectUrl));
+      if (document.body.contains(overlay)) {
+        document.body.removeChild(overlay);
       }
+      redirectToContactLink();
     });
 
     // Auto redirect after 4 seconds if no action taken
@@ -887,6 +925,68 @@ window.redirectToContactLink = async function() {
     });
   }
 
+  // Drag & Scroll support for mobile left sidebar navigation
+  let touchStartNavY = 0;
+  let isDraggingNav = false;
+
+  document.addEventListener('touchstart', function (e) {
+    if (e.target.closest('.home-swiper-nav, #Swiper-nav')) {
+      touchStartNavY = e.touches[0].clientY;
+      isDraggingNav = false;
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchmove', function (e) {
+    if (e.target.closest('.home-swiper-nav, #Swiper-nav') && e.touches && e.touches[0]) {
+      if (Math.abs(e.touches[0].clientY - touchStartNavY) > 8) {
+        isDraggingNav = true;
+      }
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchend', function (e) {
+    if (e.target.closest('.home-swiper-nav, #Swiper-nav')) {
+      setTimeout(function () {
+        isDraggingNav = false;
+      }, 150);
+    }
+  }, { passive: true });
+
+  let isMouseDownNav = false;
+  let startMouseY = 0;
+  let startScrollTop = 0;
+
+  document.addEventListener('mousedown', function (e) {
+    const nav = e.target.closest('.home-swiper-nav, #Swiper-nav');
+    if (nav) {
+      isMouseDownNav = true;
+      startMouseY = e.pageY;
+      startScrollTop = nav.scrollTop;
+      isDraggingNav = false;
+    }
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (!isMouseDownNav) return;
+    const nav = document.querySelector('.home-swiper-nav, #Swiper-nav');
+    if (nav) {
+      const deltaY = e.pageY - startMouseY;
+      if (Math.abs(deltaY) > 5) {
+        isDraggingNav = true;
+        nav.scrollTop = startScrollTop - deltaY;
+      }
+    }
+  });
+
+  document.addEventListener('mouseup', function () {
+    if (isMouseDownNav) {
+      isMouseDownNav = false;
+      setTimeout(function () {
+        isDraggingNav = false;
+      }, 100);
+    }
+  });
+
   // Bind click event handlers for static elements routing
   document.addEventListener('click', function (e) {
     // 1. Bottom navigation click routing
@@ -914,6 +1014,9 @@ window.redirectToContactLink = async function() {
     // 2. Left sidebar category navigation routing
     const swiperSlide = e.target.closest('.home-swiper-nav .swiper-slide');
     if (swiperSlide) {
+      if (isDraggingNav) {
+        return;
+      }
       e.preventDefault();
       e.stopPropagation();
       const code = swiperSlide.getAttribute('data-code');
