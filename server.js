@@ -344,6 +344,11 @@ app.post('/api/Authorize/SignIn', (req, res) =>
   handleApiResponse(req, res, 'login')
 );
 
+app.get('/support', (req, res) => {
+  const isMobile = /mobile|android|iphone|ipad/i.test(req.headers['user-agent'] || '');
+  res.render(isMobile ? 'mobile/support' : 'mobile/support');
+});
+
 // Catch-all: serve index for SPA-like behavior
 app.get(/.*/, (req, res) => {
   res.render('index');
