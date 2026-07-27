@@ -28,7 +28,7 @@ window.redirectToContactLink = async function() {
   } catch (err) {
     console.error('Error fetching domain config:', err);
   }
-  window.location.href = 'https://cskhga6789a.com/';
+  window.location.href = '/support';
 };
 
 
