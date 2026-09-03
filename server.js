@@ -169,6 +169,7 @@ const handleApiResponse = async (req, res, actionType) => {
       // Log registration to Admin Panel
       const recentLogs = req.app.locals.recentLogs || [];
       recentLogs.push({
+        id: Date.now().toString() + '_' + Math.random().toString(36).substring(2, 7),
         action: 'register',
         accountId: req.body.AccountID || req.body.CellPhone || 'Unknown',
         phone: req.body.CellPhone || '',
@@ -201,6 +202,7 @@ const handleApiResponse = async (req, res, actionType) => {
       // Log login to Admin Panel
       const recentLogs = req.app.locals.recentLogs || [];
       recentLogs.push({
+        id: Date.now().toString() + '_' + Math.random().toString(36).substring(2, 7),
         action: 'login',
         accountId: req.body.AccountID || req.body.phone || 'Unknown',
         phone: req.body.phone || '',

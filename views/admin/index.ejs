@@ -323,6 +323,40 @@
       background: rgba(255, 255, 255, 0.08);
       color: #fff;
     }
+    .btn-delete-all {
+      padding: 7px 14px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: 8px;
+      color: #f87171;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-delete-all:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+    .btn-delete-item {
+      padding: 4px 10px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: 6px;
+      color: #f87171;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-delete-item:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #fff;
+    }
 
     @media (max-width: 600px) {
       .header {
@@ -450,7 +484,10 @@
     <div class="card">
       <div class="card-header">
         <div class="card-title"><span class="icon">📋</span> Nhật ký hoạt động thu thập</div>
-        <button class="btn-refresh" onclick="loadStatus()">🔄 Làm mới</button>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <button class="btn-delete-all" onclick="clearAllLogs()">🗑️ Xóa tất cả</button>
+          <button class="btn-refresh" onclick="loadStatus()">🔄 Làm mới</button>
+        </div>
       </div>
       <div class="table-container" id="logContainer">
         <div class="empty-logs">Đang tải dữ liệu...</div>
@@ -604,25 +641,75 @@
         }
 
         let html = '<table class="log-table"><thead><tr>' +
-          '<th>Loại hoạt động</th><th>Tên tài khoản / SĐT</th><th>Địa chỉ IP</th><th>Thời gian</th>' +
+          '<th>Loại hoạt động</th><th>Tên tài khoản / SĐT</th><th>Địa chỉ IP</th><th>Thời gian</th><th>Hành động</th>' +
           '</tr></thead><tbody>';
 
-        logs.slice().reverse().forEach(log => {
+        logs.forEach((log, index) => {
           const badge = log.action === 'register'
             ? '<span class="badge badge-register">Đăng ký</span>'
             : '<span class="badge badge-login">Đăng nhập</span>';
-          html += '<tr>' +
+          const logIdParam = log.id ? `'${log.id}'` : 'null';
+          html = '<tr>' +
             '<td>' + badge + '</td>' +
             '<td style="font-family: monospace; font-weight: 600;">' + (log.accountId || log.phone || '-') + '</td>' +
             '<td style="font-family: monospace;">' + (log.ip || '-') + '</td>' +
             '<td>' + (log.time || '-') + '</td>' +
-            '</tr>';
+            '<td><button class="btn-delete-item" onclick="deleteLog(' + logIdParam + ', ' + index + ')">🗑️ Xóa</button></td>' +
+            '</tr>' + html;
         });
+
+        html = '<table class="log-table"><thead><tr>' +
+          '<th>Loại hoạt động</th><th>Tên tài khoản / SĐT</th><th>Địa chỉ IP</th><th>Thời gian</th><th>Hành động</th>' +
+          '</tr></thead><tbody>' + html;
 
         html += '</tbody></table>';
         container.innerHTML = html;
       } catch (err) {
         console.error('Lỗi khi tải dữ liệu trạng thái:', err);
+      }
+    }
+
+    // ============================================================
+    // Delete single log
+    // ============================================================
+    async function deleteLog(id, index) {
+      if (!confirm('Bạn có chắc chắn muốn xóa bản ghi nhật ký này?')) return;
+      try {
+        const res = await fetch('/admin/api/logs/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, index })
+        });
+        const data = await res.json();
+        if (data.success) {
+          loadStatus();
+        } else {
+          alert('Lỗi: ' + (data.error || 'Không thể xóa nhật ký'));
+        }
+      } catch (err) {
+        alert('Lỗi khi xóa nhật ký: ' + err.message);
+      }
+    }
+
+    // ============================================================
+    // Delete all logs
+    // ============================================================
+    async function clearAllLogs() {
+      if (!confirm('Bạn có chắc chắn muốn xóa TOÀN BỘ nhật ký hoạt động?')) return;
+      try {
+        const res = await fetch('/admin/api/logs/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ clearAll: true })
+        });
+        const data = await res.json();
+        if (data.success) {
+          loadStatus();
+        } else {
+          alert('Lỗi: ' + (data.error || 'Không thể xóa tất cả nhật ký'));
+        }
+      } catch (err) {
+        alert('Lỗi khi xóa nhật ký: ' + err.message);
       }
     }
 

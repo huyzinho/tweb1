@@ -176,4 +176,35 @@ router.get("/api/status", requireApiAuth, (req, res) => {
   });
 });
 
+// ============================================================
+// API: Delete logs
+// ============================================================
+router.post("/api/logs/delete", requireApiAuth, (req, res) => {
+  const { id, index, clearAll } = req.body;
+  
+  if (clearAll) {
+    req.app.locals.recentLogs = [];
+    return res.json({ success: true, message: "Đã xóa toàn bộ nhật ký" });
+  }
+
+  let logs = req.app.locals.recentLogs || [];
+
+  if (id !== undefined && id !== null) {
+    const initialLen = logs.length;
+    logs = logs.filter(log => log.id !== id);
+    req.app.locals.recentLogs = logs;
+    if (logs.length < initialLen) {
+      return res.json({ success: true, message: "Đã xóa nhật ký" });
+    }
+  }
+
+  if (index !== undefined && index !== null && index >= 0 && index < logs.length) {
+    logs.splice(index, 1);
+    req.app.locals.recentLogs = logs;
+    return res.json({ success: true, message: "Đã xóa nhật ký" });
+  }
+
+  return res.status(400).json({ success: false, error: "Không tìm thấy nhật ký để xóa" });
+});
+
 module.exports = router;
