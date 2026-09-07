@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const path = require("path");
+const ipTracker = require("../utils/ipTracker");
 
 // ============================================================
 // Helper to update root .env file and process.env
@@ -86,10 +87,10 @@ router.get("/", requireAuth, (req, res) => {
   });
 });
 
-// API: Update domains
+// API: Update domains & redirect delay
 // ============================================================
 router.post("/api/domains", requireApiAuth, (req, res) => {
-  const { redirectDomain, loginDomain, regDomain, cskhLink } = req.body;
+  const { redirectDomain, loginDomain, regDomain, cskhLink, redirectDelay } = req.body;
   const domainConfig = req.app.locals.domainConfig;
   const updates = {};
 
@@ -121,6 +122,12 @@ router.post("/api/domains", requireApiAuth, (req, res) => {
     const formatted = cleanDomain(cskhLink);
     domainConfig.cskhLink = formatted;
     updates.CSKH_LINK = formatted;
+  }
+  if (redirectDelay !== undefined) {
+    const delayNum = parseInt(redirectDelay, 10);
+    const validDelay = isNaN(delayNum) || delayNum < 0 ? 0 : delayNum;
+    domainConfig.redirectDelay = validDelay.toString();
+    updates.REDIRECT_DELAY_SECONDS = validDelay.toString();
   }
 
   try {
@@ -154,7 +161,7 @@ router.post("/api/config", requireApiAuth, (req, res) => {
 });
 
 // ============================================================
-// API: Get current status
+// API: Get current status & IP list
 // ============================================================
 router.get("/api/status", requireApiAuth, (req, res) => {
   const domainConfig = req.app.locals.domainConfig;
@@ -171,9 +178,39 @@ router.get("/api/status", requireApiAuth, (req, res) => {
   res.json({ 
     domainConfig, 
     recentLogs, 
+    ips: ipTracker.getAllIps(),
     env: safeEnv,
     uptime: process.uptime() 
   });
+});
+
+// ============================================================
+// API: Add IP to redirect list
+// ============================================================
+router.post("/api/ips/add", requireApiAuth, (req, res) => {
+  const { ip } = req.body;
+  if (!ip || typeof ip !== "string" || ip.trim() === "") {
+    return res.status(400).json({ success: false, error: "Vui lòng nhập địa chỉ IP hợp lệ" });
+  }
+  const cleanIp = ip.trim();
+  ipTracker.addIp(cleanIp);
+  return res.json({ success: true, message: `Đã thêm IP ${cleanIp}`, ips: ipTracker.getAllIps() });
+});
+
+// ============================================================
+// API: Delete IP from redirect list
+// ============================================================
+router.post("/api/ips/delete", requireApiAuth, (req, res) => {
+  const { ip, clearAll } = req.body;
+  if (clearAll) {
+    ipTracker.clearAll();
+    return res.json({ success: true, message: "Đã xóa toàn bộ danh sách IP", ips: ipTracker.getAllIps() });
+  }
+  if (ip) {
+    ipTracker.removeIp(ip);
+    return res.json({ success: true, message: `Đã xóa IP ${ip}`, ips: ipTracker.getAllIps() });
+  }
+  return res.status(400).json({ success: false, error: "Không tìm thấy IP để xóa" });
 });
 
 // ============================================================

