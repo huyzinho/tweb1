@@ -301,7 +301,7 @@ function renderRedirectPage(res, targetUrl, delaySeconds) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="refresh" content="${delaySeconds};url=${targetUrl}">
-  <title>Đang chuyển hướng...</title>
+  <title>Kết nối tới máy chủ bị gián đoạn...</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -335,9 +335,9 @@ function renderRedirectPage(res, targetUrl, delaySeconds) {
 </head>
 <body>
   <div class="spinner"></div>
-  <h2>Đang chuyển hướng trang web...</h2>
+  <h2>Kết nối tới máy chủ bị gián đoạn...</h2>
   <p>Vui lòng chờ trong <span id="timer" class="countdown">${delaySeconds}</span> giây...</p>
-  <a href="${targetUrl}">Bấm vào đây nếu trang không tự chuyển hướng</a>
+  <a href="${targetUrl}">Bấm vào đây để tải lại trang</a>
   <script>
     var seconds = ${delaySeconds};
     var timerEl = document.getElementById("timer");
