@@ -127,6 +127,8 @@ app.locals.domainConfig = {
   regDomain: process.env.REG_DOMAIN || '',
   loginDomain: process.env.LOGIN_DOMAIN || '',
   cskhLink: process.env.CSKH_LINK || '',
+  copyrightLink: process.env.COPYRIGHT_LINK || '',
+  copyrightText: process.env.COPYRIGHT_TEXT || 'Copyright © GA6789 Reserved',
   redirectDelay: process.env.REDIRECT_DELAY_SECONDS || '0',
 };
 app.locals.recentLogs = [];

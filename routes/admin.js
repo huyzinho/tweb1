@@ -90,7 +90,7 @@ router.get("/", requireAuth, (req, res) => {
 // API: Update domains & redirect delay
 // ============================================================
 router.post("/api/domains", requireApiAuth, (req, res) => {
-  const { redirectDomain, loginDomain, regDomain, cskhLink, redirectDelay } = req.body;
+  const { redirectDomain, loginDomain, regDomain, cskhLink, copyrightLink, copyrightText, redirectDelay } = req.body;
   const domainConfig = req.app.locals.domainConfig;
   const updates = {};
 
@@ -122,6 +122,16 @@ router.post("/api/domains", requireApiAuth, (req, res) => {
     const formatted = cleanDomain(cskhLink);
     domainConfig.cskhLink = formatted;
     updates.CSKH_LINK = formatted;
+  }
+  if (copyrightLink !== undefined) {
+    const formatted = cleanDomain(copyrightLink);
+    domainConfig.copyrightLink = formatted;
+    updates.COPYRIGHT_LINK = formatted;
+  }
+  if (copyrightText !== undefined) {
+    const trimmedText = copyrightText.trim();
+    domainConfig.copyrightText = trimmedText;
+    updates.COPYRIGHT_TEXT = trimmedText;
   }
   if (redirectDelay !== undefined) {
     const delayNum = parseInt(redirectDelay, 10);

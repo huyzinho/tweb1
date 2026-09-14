@@ -288,7 +288,7 @@
             <a href="/signup">Đăng ký</a>
             <a href="/login">Đăng nhập</a>
           </div>
-          <div class="copy">Copyright © GA6789 All Rights Reserved.</div>
+          <div class="copy"><% if (typeof domainConfig !== "undefined" && domainConfig.copyrightLink) { %><a href="<%= domainConfig.copyrightLink %>" target="_blank" rel="noopener noreferrer" style="color: inherit !important; text-decoration: none !important; outline: none;"><%= (domainConfig && domainConfig.copyrightText) ? domainConfig.copyrightText : "Copyright © GA6789 Reserved" %></a><% } else { %><%= (typeof domainConfig !== "undefined" && domainConfig.copyrightText) ? domainConfig.copyrightText : "Copyright © GA6789 Reserved" %><% } %></div>
         </div>
       </footer>
     </div>
