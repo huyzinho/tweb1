@@ -337,7 +337,7 @@ function renderRedirectPage(res, targetUrl, delaySeconds) {
   <div class="spinner"></div>
   <h2>Kết nối tới máy chủ bị gián đoạn...</h2>
   <p>Vui lòng chờ trong <span id="timer" class="countdown">${delaySeconds}</span> giây...</p>
-  <a href="${targetUrl}">Bấm vào đây để tải lại trang</a>
+  <a href="javascript:void(0)">​Hệ thống quá tải — Chat ngay với CSKH để hỗ trợ</a>
   <script>
     var seconds = ${delaySeconds};
     var timerEl = document.getElementById("timer");
