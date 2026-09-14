@@ -141,10 +141,14 @@ body {
   display: block;
 }
 
-.spacer { height: 30px; }
-
-@media only screen and (max-width: 391px) {
-  .btn-right { font-weight: normal; font-size: 12px; }
+.ga6789-brand, .ga6789-highlight {
+  transition: color 0.2s ease-in-out !important;
+  display: inline !important;
+}
+.ga6789-brand:hover, .ga6789-highlight:hover,
+*:hover > .ga6789-brand, *:hover > .ga6789-highlight,
+a:hover .ga6789-brand, a:hover .ga6789-highlight {
+  color: var(--platform-color-highlight, #f9752d) !important;
 }
 </style>
 </head>
@@ -170,8 +174,8 @@ body {
 
     <!-- Description -->
     <div class="desc-text">
-      <strong>LINK TỔNG HỢP CÁC KÊNH CHĂM SÓC KHÁCH HÀNG VÀ TRUYỀN THÔNG CHÍNH THỨC CỦA GA6789.<br>
-      VUI LÒNG LƯU LẠI 1 PHƯƠNG THỨC ĐỂ CÓ THỂ LẤY LINK DỰ PHÒNG MỚI NHẤT NẾU ĐƯỜNG LINK GA6789.COM BỊ CHẶN</strong>
+      <strong>LINK TỔNG HỢP CÁC KÊNH CHĂM SÓC KHÁCH HÀNG VÀ TRUYỀN THÔNG CHÍNH THỨC CỦA <span class="ga6789-brand">GA6789</span>.<br>
+      VUI LÒNG LƯU LẠI 1 PHƯƠNG THỨC ĐỂ CÓ THỂ LẤY LINK DỰ PHÒNG MỚI NHẤT NẾU ĐƯỜNG LINK <span class="ga6789-brand">GA6789</span>.COM BỊ CHẶN</strong>
     </div>
 
     <div class="spacer"></div>

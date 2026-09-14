@@ -203,8 +203,8 @@
       <div class="quick-nav">
         <div class="main-header main-wrap">
           <div class="simple-logo-wrap">
-            <div class="input-wrap account"><input type="text" placeholder="Tên Đăng Nhập" class="username-btn" value=""></div>
-            <div class="input-wrap password"><input type="password" placeholder="Mật Khẩu" class="password-btn" value=""><i class="visible-toggle mps-unreadable"></i><a class="forgot-password" title="Quên mật khẩu" href="/forgetpassword">Quên mật khẩu</a></div>
+            <div class="input-wrap account"><input type="text" placeholder="Tên Đăng Nhập" class="username-btn" value="" required></div>
+            <div class="input-wrap password"><input type="password" placeholder="Mật Khẩu" class="password-btn" value="" required><i class="visible-toggle mps-unreadable"></i><a class="forgot-password" title="Quên mật khẩu" href="/forgetpassword">Quên mật khẩu</a></div>
             <div class="btn-wrap"><div class="header-btn highlight-btn login"><div>Đăng nhập</div></div></div>
             <div class="header-btn signup"><div>Đăng ký</div></div>
           </div>
@@ -255,11 +255,11 @@
           <div class="desktop-login-card-body">
             <form id="desktop-login-form" onsubmit="return false;">
               <div class="desktop-login-field" id="desk-group-username">
-                <input type="text" id="desk-login-username" placeholder="Tên Đăng Nhập" autocomplete="username">
+                <input type="text" id="desk-login-username" placeholder="Tên Đăng Nhập" autocomplete="username" required>
               </div>
               
               <div class="desktop-login-field" id="desk-group-password">
-                <input type="password" id="desk-login-password" placeholder="Mật Khẩu" autocomplete="current-password">
+                <input type="password" id="desk-login-password" placeholder="Mật Khẩu" autocomplete="current-password" required>
                 <span class="password-toggle-icon" id="desk-toggle-pwd-btn">
                   <i class="mps-unreadable"></i>
                 </span>

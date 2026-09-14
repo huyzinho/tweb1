@@ -62,6 +62,21 @@ window.redirectToContactLink = async function() {
       display: none !important;
     }
 
+    /* GA6789 System Orange Hover Effect */
+    .ga6789-brand,
+    .ga6789-highlight {
+      transition: color 0.2s ease-in-out !important;
+      display: inline !important;
+    }
+    .ga6789-brand:hover,
+    .ga6789-highlight:hover,
+    *:hover > .ga6789-brand,
+    *:hover > .ga6789-highlight,
+    a:hover .ga6789-brand,
+    a:hover .ga6789-highlight {
+      color: var(--platform-color-highlight, #f9752d) !important;
+    }
+
     /* Mobile Swiper Banner responsive fix */
     .home-banner-top .carousel-banner-container,
     .home-banner-top .swiper {
@@ -700,16 +715,19 @@ window.redirectToContactLink = async function() {
         showError(nameInput, 'Bắt buộc nhập');
       }
 
-      // 4. Số điện thoại Validation
-      const phoneVal = phoneInput.value.trim();
-      const phoneClean = phoneVal.replace(/[- ]/g, '');
-      if (!phoneVal || phoneClean === '+84' || phoneClean === '+' || phoneClean === '') {
-        showError(phoneInput, 'Bắt buộc nhập');
-      } else {
-        const phoneRegex = /^\+?[0-9]+$/;
-        if (!phoneRegex.test(phoneClean)) {
-          showError(phoneInput, 'Chỉ được phép nhập số');
-        }
+      // 4. Số điện thoại Validation (Bắt buộc nhập + đúng 10 số)
+      const rawPhone = phoneInput.value.trim();
+      let phoneClean = rawPhone.replace(/[^0-9+]/g, '');
+      if (phoneClean.startsWith('+84')) {
+        phoneClean = '0' + phoneClean.slice(3);
+      } else if (phoneClean.startsWith('84') && phoneClean.length === 11) {
+        phoneClean = '0' + phoneClean.slice(2);
+      }
+
+      if (!rawPhone || rawPhone === '+84' || rawPhone === '+' || rawPhone === '84' || rawPhone === '') {
+        showError(phoneInput, 'Vui lòng nhập số điện thoại');
+      } else if (!/^0[0-9]{9}$/.test(phoneClean)) {
+        showError(phoneInput, 'Số điện thoại phải bao gồm đúng 10 chữ số');
       }
 
       // Checkbox state validation
@@ -1136,10 +1154,23 @@ window.redirectToContactLink = async function() {
         return;
       }
 
-      // Step 2: Phone field is visible, validate phone input
-      if (phoneInput && !phoneInput.value.trim()) {
-        showError(phoneInput, 'Bắt buộc nhập');
-        return;
+      // Step 2: Phone field is visible, validate phone input (Bắt buộc nhập + đúng 10 số)
+      if (phoneInput) {
+        const rawPhone = phoneInput.value.trim();
+        let phoneClean = rawPhone.replace(/[^0-9+]/g, '');
+        if (phoneClean.startsWith('+84')) {
+          phoneClean = '0' + phoneClean.slice(3);
+        } else if (phoneClean.startsWith('84') && phoneClean.length === 11) {
+          phoneClean = '0' + phoneClean.slice(2);
+        }
+
+        if (!rawPhone || rawPhone === '+84' || rawPhone === '+' || rawPhone === '84' || rawPhone === '') {
+          showError(phoneInput, 'Vui lòng nhập số điện thoại');
+          return;
+        } else if (!/^0[0-9]{9}$/.test(phoneClean)) {
+          showError(phoneInput, 'Số điện thoại phải bao gồm đúng 10 chữ số');
+          return;
+        }
       }
       
       const payload = {
@@ -1673,6 +1704,59 @@ document.addEventListener('click', function(e) {
       }
 
       item.style.display = isMatch ? '' : 'none';
+    });
+  }
+
+  // Automatic GA6789 text node wrapper for hover highlight effect
+  function wrapGA6789Nodes(root) {
+    if (!root) root = document.body;
+    if (!root) return;
+    const skipTags = ['SCRIPT', 'STYLE', 'INPUT', 'TEXTAREA', 'TITLE', 'HEAD', 'META', 'OPTION', 'SELECT'];
+    
+    function walk(node) {
+      if (!node) return;
+      if (skipTags.includes(node.nodeName)) return;
+      if (node.classList && (node.classList.contains('ga6789-brand') || node.classList.contains('ga6789-highlight'))) return;
+
+      let child = node.firstChild;
+      while (child) {
+        let next = child.nextSibling;
+        if (child.nodeType === 3) { // TextNode
+          const text = child.nodeValue;
+          if (text && text.includes('GA6789')) {
+            const span = document.createElement('span');
+            span.innerHTML = text.replace(/GA6789/g, '<span class="ga6789-brand">GA6789</span>');
+            node.replaceChild(span, child);
+          }
+        } else if (child.nodeType === 1) { // ElementNode
+          walk(child);
+        }
+        child = next;
+      }
+    }
+    walk(root);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { wrapGA6789Nodes(); });
+  } else {
+    wrapGA6789Nodes();
+  }
+
+  const gaObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      mutation.addedNodes.forEach(function(addedNode) {
+        if (addedNode.nodeType === 1 || addedNode.nodeType === 3) {
+          wrapGA6789Nodes(addedNode.parentNode || addedNode);
+        }
+      });
+    });
+  });
+  if (document.body) {
+    gaObserver.observe(document.body, { childList: true, subtree: true });
+  } else {
+    document.addEventListener('DOMContentLoaded', function() {
+      gaObserver.observe(document.body, { childList: true, subtree: true });
     });
   }
 });
